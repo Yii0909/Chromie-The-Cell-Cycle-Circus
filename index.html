@@ -83,7 +83,7 @@
       <div class="chromie-dialogue">📸 "Mitosis: Because your skin cells ghost you daily."</div>
     </div>
   
-    <div class="slide" onclick="window.location.href('mitosis.html', '_blank')" style="cursor: pointer;">
+    <div class="slide" onclick="window.location.href = 'mitosis.html'" style="cursor: pointer;">
       <div class="chromie-dialogue">📸 "Still wondering? Let's dive into the explaination."</div>
     </div>
   </section>
@@ -97,7 +97,7 @@
       <div class="chromie-dialogue">💖 "Our genes would make such cute babies…" </div>
     </div>
 
-    <div class="slide" onclick="window.location.href('meiosis.html', '_blank')" style="cursor: pointer;">
+    <div class="slide" onclick="window.location.href= 'meiosis.html'" style="cursor: pointer;">
       <div class="chromie-dialogue">💖 "Worrying not being able to understand the comic? Press here."</div>
     </div>
   </section>
@@ -117,7 +117,8 @@
   function launchQuiz() {
   document.getElementById("chromieSound").play();
   setTimeout(() => {
-    window.location.href('chromie_quiz.html', '_blank');
+    window.location.href = 'chromie_quiz.html';
+
   }, 800);
 }
 
@@ -125,5 +126,6 @@
 
 </body>
 </html>
+
 
 
