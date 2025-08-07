@@ -57,15 +57,15 @@
 
   <h1>🔬 Explore Mitosis Phases</h1>
 
-  <button class="btn" onclick="showPhase('prophase1')">Prophase I</button>
-  <button class="btn" onclick="showPhase('metaphase1')">Metaphase I</button>
-  <button class="btn" onclick="showPhase('anaphase1')">Anaphase I</button>
-  <button class="btn" onclick="showPhase('telophase1')">Telophase I</button>
+  <button class="btn" onclick="showPhase('prophase1', this)">Prophase I</button>
+  <button class="btn" onclick="showPhase('metaphase1', this)">Metaphase I</button>
+  <button class="btn" onclick="showPhase('anaphase1', this)">Anaphase I</button>
+  <button class="btn" onclick="showPhase('telophase1', this)">Telophase I</button>
   <br>
-  <button class="btn" onclick="showPhase('prophase2')">Prophase II</button>
-  <button class="btn" onclick="showPhase('metaphase2')">Metaphase II</button>
-  <button class="btn" onclick="showPhase('anaphase2')">Anaphase II</button>
-  <button class="btn" onclick="showPhase('telophase2')">Telophase II</button>
+  <button class="btn" onclick="showPhase('prophase2', this)">Prophase II</button>
+  <button class="btn" onclick="showPhase('metaphase2', this)">Metaphase II</button>
+  <button class="btn" onclick="showPhase('anaphase2', this)">Anaphase II</button>
+  <button class="btn" onclick="showPhase('telophase2', this)">Telophase II</button>
 
   <div class="caption">🔎 Click on the phases to learn more about it!</div>
 
@@ -119,28 +119,27 @@
   </script>
 
 <script>
-    function showPhase(phaseId) {
-      // Hide all phase content
-      const phases = document.querySelectorAll('.phase');
-      phases.forEach(p => p.style.display = 'none');
-  
-      // Show selected phase
-      document.getElementById(phaseId).style.display = 'block';
-  
-      // Remove 'active' from all buttons
-      const buttons = document.querySelectorAll('.btn');
-      buttons.forEach(btn => btn.classList.remove('active'));
-  
-      // Add 'active' to the clicked button
-      const clickedButton = Array.from(buttons).find(btn =>
-        btn.textContent.toLowerCase().includes(phaseId)
-      );
-      if (clickedButton) clickedButton.classList.add('active');
-    }
+    function showPhase(phaseId, clickedButton) {
+  // Hide all phase content
+  const phases = document.querySelectorAll('.phase');
+  phases.forEach(p => p.style.display = 'none');
+
+  // Show selected phase
+  document.getElementById(phaseId).style.display = 'block';
+
+  // Remove 'active' from all buttons
+  const buttons = document.querySelectorAll('.btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  // Add 'active' to the clicked button
+  clickedButton.classList.add('active');
+}
+
   </script>
   
 
 </body>
 </html>
+
 
 
