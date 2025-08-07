@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chromie’s Cell Quiz</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #dcdcdc;
+      color: #333;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #4e4e4e;
+    }
+    .quiz-container {
+      max-width: 700px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      border: 2px dashed #c7c7c7;
+      padding: 20px;
+      border-radius: 12px;
+    }
+    .question {
+      margin-bottom: 25px;
+    }
+    .question h3 {
+      margin-bottom: 10px;
+    }
+    .question label {
+      display: block;
+      margin-bottom: 6px;
+      cursor: pointer;
+    }
+    .submit-button {
+      background-color: #656565;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 1.2em;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .back-button {
+  background-color: #c7c7c7;
+  color: #333;
+  padding: 10px 20px;
+  border: none;
+  font-size: 1.2em;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>🧠 Chromie’s Cell Division Quiz</h1>
+  <div class="quiz-container">
+    
+    <div class="question">
+      <h3>1. What phase of mitosis do chromosomes line up in the middle?</h3>
+      <label><input type="radio" name="q1"> Prophase</label>
+      <label><input type="radio" name="q1"> Metaphase</label>
+      <label><input type="radio" name="q1"> Telophase</label>
+    </div>
+
+    <div class="question">
+      <h3>2. Which process results in four genetically unique cells?</h3>
+      <label><input type="radio" name="q2"> Mitosis</label>
+      <label><input type="radio" name="q2"> Meiosis</label>
+      <label><input type="radio" name="q2"> Binary Fission</label>
+    </div>
+
+    <div class="question">
+      <h3>3. What structure pulls chromosomes apart during cell division?</h3>
+      <label><input type="radio" name="q3"> Spindle fibers</label>
+      <label><input type="radio" name="q3"> Ribosomes</label>
+      <label><input type="radio" name="q3"> Lysosomes</label>
+    </div>
+
+    <div class="question">
+      <h3>4. What’s Chromie’s favorite phase?</h3>
+      <label><input type="radio" name="q4"> Interphase (napping)</label>
+      <label><input type="radio" name="q4"> Metaphase (posing)</label>
+      <label><input type="radio" name="q4"> Cytokinesis (buh bye!)</label>
+    </div>
+
+    <div class="question">
+        <h3>5. What is the primary purpose of mitosis? </h3>
+        <label><input type="radio" name="q5"> To produce energy for the cell</label>
+        <label><input type="radio" name="q5"> To create two identical daughter cells</label>
+        <label><input type="radio" name="q5"> To repair damage DNA</label>
+      </div>
+
+      <div class="question">
+        <h3>6. During which phase of mitosis do sister chromatids seperate?</h3>
+        <label><input type="radio" name="q6"> Prophase</label>
+        <label><input type="radio" name="q6"> Metaphase</label>
+        <label><input type="radio" name="q6"> Anaphase</label>
+      </div>
+
+      <div class="question">
+        <h3>7. What is the role of spindle fibers during cell division?</h3>
+        <label><input type="radio" name="q7"> To replicate DNA</label>
+        <label><input type="radio" name="q7"> To pull chromosomes apart</label>
+        <label><input type="radio" name="q7"> To form the nuclear envelope</label>
+      </div>
+
+      <div class="question">
+        <h3>8. What is the main difference between mitosis and meiosis?</h3>
+        <label><input type="radio" name="q8"> Mitosis involves crossing over, while meiosis does not</label>
+        <label><input type="radio" name="q8"> Mitosis create identical cells, while meiosis creates genetically unique cells</label>
+        <label><input type="radio" name="q8"> Mitosis occurs in gametes, while meiosis occurs in somatic cells</label>
+      </div>
+
+      <div class="question">
+        <h3>9. What is the name of the structure where crossing over occurs duirng meiosis?</h3>
+        <label><input type="radio" name="q9"> Centromere</label>
+        <label><input type="radio" name="q9"> Chiasma</label>
+        <label><input type="radio" name="q9"> Nucleolus</label>
+      </div>
+
+    <button class="submit-button" onclick="alert('Feature coming soon… Chromie’s working on it!')">
+      Submit Answers
+    </button>
+    <button class="submit-button" onclick="window.location.href='index.html'">
+        ⬅️ Back to Home
+      </button>
+      
+  </div>
+
+  <script>
+    const correctAnswers = {
+      q1: "Metaphase",
+      q2: "Meiosis",
+      q3: "Spindle fibers",
+      q4: "Metaphase (posing)",
+      q5: "To create two identical daughter cells",
+      q6: "Anaphase",
+      q7: "To pull chromosomes apart",
+      q8: "Mitosis create identical cells, while meiosis creates genetically unique cells",
+      q9: "Chiasma"
+    };
+  
+    const explanations = {
+      q1: "Metaphase is when chromosomes align at the cell's equator for separation.",
+      q2: "Meiosis produces four genetically diverse gametes through recombination.",
+      q3: "Spindle fibers attach to chromosomes and pull them to opposite poles.",
+      q4: "Chromie loves Metaphase—it's the center-stage posing moment.",
+      q5: "Mitosis creates two genetically identical daughter cells.",
+      q6: "In Anaphase, sister chromatids are pulled apart toward opposite sides.",
+      q7: "Spindle fibers physically move chromosomes during division.",
+      q8: "Meiosis includes recombination and results in genetically diverse cells.",
+      q9: "Chiasma is the crossover point between homologous chromosomes during meiosis."
+    };
+  
+    function checkAnswers() {
+      let total = 9;
+      let correct = 0;
+      let feedback = "";
+  
+      for (let i = 1; i <= total; i++) {
+        const radios = document.getElementsByName("q" + i);
+        let userAnswer = null;
+        for (const radio of radios) {
+          if (radio.checked) {
+            userAnswer = radio.parentElement.innerText.trim();
+            break;
+          }
+        }
+  
+        if (userAnswer === correctAnswers["q" + i]) {
+          correct++;
+        } else {
+          feedback += `Question ${i}: ❌ Incorrect. ${explanations["q" + i]}\n\n`;
+        }
+      }
+  
+      const score = Math.round((correct / total) * 100);
+      alert(`✅ You scored ${score}% (${correct}/${total})\n\n${feedback}`);
+
+      if (score < 60) {
+  alert("💪 Chromie says: Work harder! You’ve got potential!");
+} else {
+  alert("🎉 Chromie says: Congrats! Cell-tacular job!");
+}
+
+      
+
+    }
+  
+    document.querySelector(".submit-button").onclick = checkAnswers;
+  </script>
+  
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mitosis Animation Viewer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #e6e6e6;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #333;
+    }
+    .btn {
+      margin: 10px;
+      padding: 12px 24px;
+      background-color: #8b8b8b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .btn:hover {
+      background-color: #8b8b8b;
+    }
+    .phase {
+      display: none;
+      margin-top: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .phase img {
+      max-width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .caption {
+      margin-top: 15px;
+      font-size: 1.2em;
+      color: #555;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn.active {
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(60, 60, 60, 0.772);
+  color:#555;
+}
+
+  </style>
+</head>
+<body>
+
+  <h1>🔬 Explore Mitosis Phases</h1>
+
+  <button class="btn" onclick="showPhase('prophase')">Prophase</button>
+  <button class="btn" onclick="showPhase('metaphase')">Metaphase</button>
+  <button class="btn" onclick="showPhase('anaphase')">Anaphase</button>
+  <button class="btn" onclick="showPhase('telophase')">Telophase</button>
+
+  <div class="caption">🔎 Click on the phases to learn more about it!</div>
+
+  <div id="prophase" class="phase">
+    <img src="images/prophase.png" alt="Prophase illustration">
+    <div class="caption">🎬 Prophase: Chromosomes condense, spindle fibers form, and the nuclear envelope breaks down.</div>
+  </div>
+
+  <div id="metaphase" class="phase">
+    <img src="images/metaphase.png" alt="Metaphase illustration">
+    <div class="caption">📏 Metaphase: Chromosomes align at the cell’s equator—Chromie’s runway moment!</div>
+  </div>
+
+  <div id="anaphase" class="phase">
+    <img src="images/anaphase.png" alt="Anaphase illustration">
+    <div class="caption">💔 Anaphase: Sister chromatids are pulled apart to opposite poles. A dramatic cellular split!</div>
+  </div>
+
+  <div id="telophase" class="phase">
+    <img src="images/telophase.png" alt="Telophase illustration">
+    <div class="caption">🎭 Telophase: Nuclear membranes reform, chromosomes de-condense, and the cell prepares to divide.</div>
+  </div>
+
+  <script>
+    function showPhase(phaseId) {
+      const phases = document.querySelectorAll('.phase');
+      phases.forEach(p => p.style.display = 'none');
+      document.getElementById(phaseId).style.display = 'block';
+    }
+  </script>
+
+<script>
+    function showPhase(phaseId) {
+      // Hide all phase content
+      const phases = document.querySelectorAll('.phase');
+      phases.forEach(p => p.style.display = 'none');
+  
+      // Show selected phase
+      document.getElementById(phaseId).style.display = 'block';
+  
+      // Remove 'active' from all buttons
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+  
+      // Add 'active' to the clicked button
+      const clickedButton = Array.from(buttons).find(btn =>
+        btn.textContent.toLowerCase().includes(phaseId)
+      );
+      if (clickedButton) clickedButton.classList.add('active');
+    }
+  </script>
+  
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="images/chromie.png">
+  <title>Chromie’s Cell Division Saga</title>
+  <style>
+    body {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      background-color: #e2e2e2;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(180deg, #3a3a3a, #f0f0f0);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      margin: 0;
+      font-size: 2.8em;
+    }
+    h2 {
+      color: #5e5e5e;
+    }
+    section {
+      padding: 30px;
+      border-bottom: 2px dashed #656565;
+    }
+    .slide {
+      margin-bottom: 20px;
+    }
+    .chromie-dialogue {
+      background-color: #cfcfcf;
+      padding: 10px;
+      border-left: 5px solid #8e8e8e;
+      font-style: italic;
+    }
+    .quiz-button {
+      background-color: #000000;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      cursor: pointer;
+      font-size: 1.2em;
+      border-radius: 8px;
+    }
+  body {
+    animation: fadeIn 1s ease-in-out;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Chromie’s Cell Division Saga</h1>
+    <p>The Drama, The Romance, The Splitting-Up Feels!</p>
+  </header>
+
+  <section style="cursor: default;">
+  <h2>Meet Chromie</h2>
+
+    <div class="slide" onclick="window.open('https://www.figma.com/proto/Z9gHOxxNHZOleKdIhn0U6h/Chromie---The-Cell-Cycle-Circus?node-id=66-01&t=N3Cm86sHX56oL0m7-1', '_blank')" style="cursor: pointer;">
+      <p>Chromie poses like a DNA-caped superhero on a nucleus stage.</p>
+      <div class="chromie-dialogue">🧬 "I’m Chromie—your genetic VIP! 3 billion base pairs of fabulous!"</div>
+    </div>
+  </section>
+
+  <section style="cursor: default;">
+    <h2>Mitosis — Copy Paste Gone Wild</h2>
+  
+    <div class="slide" onclick="window.open('https://www.figma.com/proto/Z9gHOxxNHZOleKdIhn0U6h/Chromie---The-Cell-Cycle-Circus?node-id=66-28&t=N3Cm86sHX56oL0m7-1', '_blank')" style="cursor: pointer;">
+      <p>Chromie duplicates like a TikTok trend—chromatid selfie time.</p>
+      <div class="chromie-dialogue">📸 "Mitosis: Because your skin cells ghost you daily."</div>
+    </div>
+  
+    <div class="slide" onclick="window.open('mitosis.html', '_blank')" style="cursor: pointer;">
+      <div class="chromie-dialogue">📸 "Still wondering? Let's dive into the explaination."</div>
+    </div>
+  </section>
+  
+
+  <section style="cursor: default;">
+    <h2>Meiosis — Tinder for Chromosomes</h2>
+
+    <div class="slide" onclick="window.open('https://www.figma.com/proto/Z9gHOxxNHZOleKdIhn0U6h/Chromie---The-Cell-Cycle-Circus?node-id=66-44&t=N3Cm86sHX56oL0m7-1', '_blank')" style="cursor: pointer;">
+      <p>Homologous chromosomes swipe right and cross over like a Netflix binge.</p>
+      <div class="chromie-dialogue">💖 "Our genes would make such cute babies…" </div>
+    </div>
+
+    <div class="slide" onclick="window.open('meiosis.html', '_blank')" style="cursor: pointer;">
+      <div class="chromie-dialogue">💖 "Worrying not being able to understand the comic? Press here."</div>
+    </div>
+  </section>
+  
+  
+  <section>
+    <h2>Ready to Test Your Chromie Knowledge?</h2>
+    <button onclick="launchQuiz()" class="quiz-button">
+      Launch Quiz
+    </button>
+    
+  </section>
+
+  <audio id="chromieSound" src="chromie_intro.mp3" preload="auto"></audio>
+
+<script>
+  function launchQuiz() {
+  document.getElementById("chromieSound").play();
+  setTimeout(() => {
+    window.open('chromie_quiz.html', '_blank');
+  }, 800);
+}
+
+</script>
+
+</body>
+</html>
