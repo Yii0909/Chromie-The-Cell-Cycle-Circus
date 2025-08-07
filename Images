@@ -1,0 +1,6 @@
+your-project/
+├── index.html
+├── images/
+│   ├── prophase.png
+│   ├── metaphase.png
+│   └── ...etc
