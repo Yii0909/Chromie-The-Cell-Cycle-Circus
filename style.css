@@ -77,3 +77,10 @@ body {
   border-radius: 8px;
 }
 
+.drop-zone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
