@@ -60,10 +60,30 @@ footer {
   border-top: 2px dashed #aaa;
   box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
 }
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+  padding: 20px;
+  background: #dff0ff;
+  color: #333;
+  font-size: 0.9em;
+  border-top: 2px dashed #aaa;
+}
 
   </style>
 </head>
 <body>
+  <div class="page-wrapper">
 
   <header>
     <h1>Chromie & The Cell Cycle Circus</h1>
@@ -140,9 +160,10 @@ footer {
       🧠 Educational content powered by <a href="https://your-portfolio-link.com" target="_blank" style="color: #0077cc;">Yii</a>
     </p>
   </footer>
-
+</div>
 </body>
 </html>
+
 
 
 
