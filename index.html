@@ -56,28 +56,38 @@
     from { opacity: 0; transform: scale(0.98); }
     to { opacity: 1; transform: scale(1); }
   }
-footer {
-  border-top: 2px dashed #aaa;
-  box-shadow: 0 -2px 5px grey;
-}
-html, body {
+
+    html, body {
   height: 100%;
   margin: 0;
 }
 
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #dff0ff;
+  color: #333;
+  font-size: 0.9em;
+  padding: 20px;
+  border-top: 2px dashed #aaa;
+  box-shadow: 0 -2px 5px grey;
+  z-index: 1000;
+}
 .page-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  padding-bottom: 100px; /* Adjust based on footer height */
+}
+footer {
+  animation: slideUp 0.6s ease-in-out;
 }
 
-footer {
-  margin-top: auto;
-  padding: 20px;
-  background: #dff0ff;
-  color: grey;
-  font-size: 0.9em;
-  border-top: 2px dashed #aaa;
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
   </style>
@@ -153,16 +163,16 @@ footer {
 }
 
 </script>
-  <footer style="margin-top: 40px; padding: 20px; background: #dff0ff; color: #333; font-size: 0.9em;">
-    <p>🔬 Made with curiosity and chromosomes by <strong>Chromie Labs</strong></p>
-    <p>💡 Want more science games? Stay tuned for <em>Cell Division Saga</em>!</p>
+  <footer style="margin-top: 10px; padding: 20px; background: #dff0ff; color: dark grey; font-size: 0.9em;">
+    <p>🔬 Made with curiosity and chromosomes by <strong>Chromie Crews</strong></p>
+    <p>Hajar, Aqila, Teo Yii Xian, Avril Ting</p>
     <p style="margin-top: 10px;">
-      🧠 Educational content powered by <a href="https://your-portfolio-link.com" target="_blank" style="color: #0077cc;">Yii</a>
     </p>
   </footer>
 </div>
 </body>
 </html>
+
 
 
 
