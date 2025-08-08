@@ -67,20 +67,28 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  background: #dff0ff;
-  color: #63666A;
-  font-size: 0.9em;
-  padding: 20px;
+  background: #2e2e2e; /* dark grey */
+  color: #ffffff;       /* white text */
+  font-size: 0.8em;
+  padding: 10px 20px;   /* thinner padding */
   border-top: 2px dashed #aaa;
-  box-shadow: 0 -2px 5px grey;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
   z-index: 1000;
+  animation: slideUp 0.6s ease-in-out;
 }
+
 .page-wrapper {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  padding-bottom: 100px; /* Adjust based on footer height */
+  padding-bottom: 60px; /* matches new footer height */
 }
+    
+footer p {
+  text-align: center;
+  margin: 4px 0;
+}
+
 footer {
   animation: slideUp 0.6s ease-in-out;
 }
@@ -172,6 +180,7 @@ footer {
 </div>
 </body>
 </html>
+
 
 
 
