@@ -54,15 +54,6 @@ body {
     color: #333;
   }
 
-  canvas {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-  border: 2px solid #333;
-  background-color: #fff;
-}
 
 #controls button {
   font-size: 1.5em;
@@ -78,3 +69,4 @@ body {
   font-size: 1em;
   padding: 10px;
 }
+
