@@ -2,6 +2,10 @@ const dragItems = document.querySelectorAll('.drag-item');
 const dropZones = document.querySelectorAll('.drop-zone');
 const result = document.getElementById('result');
 
+canvas.width = 400;
+canvas.height = 400;
+
+
 dragItems.forEach(item => {
   item.addEventListener('dragstart', e => {
     e.dataTransfer.setData('text/plain', item.dataset.type);
@@ -27,3 +31,4 @@ dropZones.forEach(zone => {
     }
   });
 });
+
