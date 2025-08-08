@@ -3,26 +3,145 @@
 <head>
   <meta charset="UTF-8">
   <title>Chromosome Match-Up</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f0f8ff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .drag-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .drag-item {
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border: 2px dashed #888;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      font-weight: bold;
+      position: relative;
+    }
+
+    .drag-item img {
+      max-width: 80%;
+      max-height: 80%;
+    }
+
+    .drop-zone {
+      width: 120px;
+      height: 120px;
+      background: #e0ffe0;
+      border: 2px solid #4caf50;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .drag-item, .drop-zone {
+        width: 80px;
+        height: 80px;
+        font-size: 0.8em;
+      }
+    }
+  </style>
 </head>
 <body>
   <h1>🧬 Chromosome Match-Up</h1>
   <p>Drag the chromosome to its homologous pair!</p>
 
   <div class="game-container">
+    <div class="drag-items">
+      <div class="drag-item" draggable="true" data-type="B">
+        <img src="https://via.placeholder.com/60x60?text=B" alt="Chromosome B">
+      </div>
+      <div class="drag-item" draggable="true" data-type="A">
+        <img src="https://via.placeholder.com/60x60?text=A" alt="Chromosome A">
+      </div>
+      <div class="drag-item" draggable="true" data-type="C">
+        <img src="https://via.placeholder.com/60x60?text=C" alt="Chromosome C">
+      </div>
+    </div>
+
     <div class="drop-zone" data-match="A">Pair A</div>
     <div class="drop-zone" data-match="B">Pair B</div>
     <div class="drop-zone" data-match="C">Pair C</div>
-
-    <div class="drag-items">
-      <div class="drag-item" draggable="true" data-type="B">Chromosome B</div>
-      <div class="drag-item" draggable="true" data-type="A">Chromosome A</div>
-      <div class="drag-item" draggable="true" data-type="C">Chromosome C</div>
-    </div>
   </div>
 
   <div id="result"></div>
 
-  <script src="script.js"></script>
+  <script>
+    const dragItems = document.querySelectorAll('.drag-item');
+    const dropZones = document.querySelectorAll('.drop-zone');
+    const result = document.getElementById('result');
+
+    dragItems.forEach(item => {
+      item.addEventListener('dragstart', e => {
+        e.dataTransfer.setData('text/plain', item.dataset.type);
+      });
+    });
+
+    dropZones.forEach(zone => {
+      zone.addEventListener('dragover', e => {
+        e.preventDefault();
+        zone.style.background = '#c8facc';
+      });
+
+      zone.addEventListener('dragleave', () => {
+        zone.style.background = '#e0ffe0';
+      });
+
+      zone.addEventListener('drop', e => {
+        e.preventDefault();
+        const draggedType = e.dataTransfer.getData('text/plain');
+        const matchType = zone.dataset.match;
+
+        if (draggedType === matchType) {
+          result.textContent = `✅ Correct! ${draggedType} matched with Pair ${matchType}`;
+          zone.style.background = '#a5f2a5';
+        } else {
+          result.textContent = `❌ Oops! ${draggedType} doesn't match Pair ${matchType}`;
+          zone.style.background = '#ffcccc';
+        }
+
+        setTimeout(() => {
+          zone.style.background = '#e0ffe0';
+        }, 1000);
+      });
+    });
+  </script>
 </body>
 </html>
