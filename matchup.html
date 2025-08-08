@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chromosome Match-Up</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🧬 Chromosome Match-Up</h1>
+  <p>Drag the chromosome to its homologous pair!</p>
+
+  <div class="game-container">
+    <div class="drop-zone" data-match="A">Pair A</div>
+    <div class="drop-zone" data-match="B">Pair B</div>
+    <div class="drop-zone" data-match="C">Pair C</div>
+
+    <div class="drag-items">
+      <div class="drag-item" draggable="true" data-type="B">Chromosome B</div>
+      <div class="drag-item" draggable="true" data-type="A">Chromosome A</div>
+      <div class="drag-item" draggable="true" data-type="C">Chromosome C</div>
+    </div>
+  </div>
+
+  <div id="result"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
