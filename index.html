@@ -14,16 +14,26 @@
       padding: 0;
     }
     header {
-      position: fixed;
-      background-image: url('Images/header1.jpg'); /* relative path from CSS file */
+  position: fixed;
+  width: 100%;
+  background-image: url('Images/header1.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-      color: black;
-      padding: 20px;
-      text-align: center;
-      width: 100%
-    }
+  color: black;
+  padding: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.header-icon {
+  width: 60px;
+  height: auto;
+}
+
     h1 {
       margin: 0;
       font-size: 2.8em;
@@ -110,6 +120,7 @@ footer {
 
 
   <header>
+  <img src="Images/chromo1.png" alt="Chromie" class="header-icon">
     <h1>Chromie & The Cell Cycle Circus</h1>
     <p>The Drama, The Romance, The Splitting-Up Feels!</p>
   </header>
@@ -186,6 +197,7 @@ footer {
 </div>
 </body>
 </html>
+
 
 
 
