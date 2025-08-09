@@ -19,7 +19,7 @@ const maze = [
 ];
 
 let chromie = { x: 1, y: 1 };
-let atp = 105;
+let atp = 120;
 let timeLeft = 30;
 let microtubules = [{ x: 5, y: 2, dir: 1 }]; // moving obstacle
 
@@ -154,3 +154,4 @@ function updateMicrotubules() {
 
 drawMaze();
 gameLoop();
+
