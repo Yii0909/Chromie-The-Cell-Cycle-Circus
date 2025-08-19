@@ -87,8 +87,8 @@ body {
 #backButton {
   position: fixed;
   bottom: 20px;
-  right: 20px;
-  background-color: #4caf50;
+  right: 60px;
+  background-color: #8a868e;
   color: white;
   border: none;
   border-radius: 50px;
@@ -103,4 +103,5 @@ body {
 #backButton:hover {
   background-color: #388e3c;
 }
+
 
