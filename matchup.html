@@ -106,45 +106,56 @@
   <div id="result"></div>
 
   <script>
-    let selectedChromosome = null;
-    const dragItems = document.querySelectorAll('.drag-item');
-    const dropZones = document.querySelectorAll('.drop-zone');
-    const result = document.getElementById('result');
+  let selectedChromosome = null;
+  let matchedPairs = new Set();
+  const dragItems = document.querySelectorAll('.drag-item');
+  const dropZones = document.querySelectorAll('.drop-zone');
+  const result = document.getElementById('result');
 
-    dragItems.forEach(item => {
-      item.addEventListener('click', () => {
-        selectedChromosome = item.dataset.type;
-        result.textContent = `🧬 Selected Chromosome ${selectedChromosome}`;
-      });
+  dragItems.forEach(item => {
+    item.addEventListener('click', () => {
+      selectedChromosome = item.dataset.type;
+      result.textContent = `🧬 Selected Chromosome ${selectedChromosome}`;
     });
+  });
 
-    dropZones.forEach(zone => {
-      zone.addEventListener('click', () => {
-        if (!selectedChromosome) {
-          result.textContent = "❗ Tap a chromosome first!";
-          return;
-        }
+  dropZones.forEach(zone => {
+    zone.addEventListener('click', () => {
+      if (!selectedChromosome) {
+        result.textContent = "❗ Tap a chromosome first!";
+        return;
+      }
 
-        const matchType = zone.dataset.match;
-        if (selectedChromosome === matchType) {
-          result.textContent = `✅ Correct! ${selectedChromosome} matched with Pair ${matchType}`;
-          zone.style.background = '#a5f2a5';
-        } else {
-          result.textContent = `❌ Oops! ${selectedChromosome} doesn't match Pair ${matchType}`;
-          zone.style.background = '#ffcccc';
-        }
+      const matchType = zone.dataset.match;
+      if (selectedChromosome === matchType) {
+        result.textContent = `✅ Correct! ${selectedChromosome} matched with Pair ${matchType}`;
+        zone.style.background = '#a5f2a5';
+        matchedPairs.add(matchType);
+      } else {
+        result.textContent = `❌ Oops! ${selectedChromosome} doesn't match Pair ${matchType}`;
+        zone.style.background = '#ffcccc';
+      }
 
-        selectedChromosome = null;
+      selectedChromosome = null;
 
+      setTimeout(() => {
+        zone.style.background = '#e0ffe0';
+      }, 1000);
+
+      // Check if all pairs are matched
+      if (matchedPairs.size === dropZones.length) {
         setTimeout(() => {
-          zone.style.background = '#e0ffe0';
-        }, 1000);
-      });
+          result.textContent = "🎉 All pairs matched! You’re a homologous hero!";
+        }, 1100);
+      }
     });
-  </script>
+  });
+</script>
+
 </body>
   <script>
     (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="STSTJwg07d9WPTV7bPW3w";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
 </html>
+
 
