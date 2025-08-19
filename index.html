@@ -13,7 +13,8 @@
       margin: 0;
       padding: 0;
     }
-    header {
+
+  header {
   position: fixed;
   width: 100%;
   background-image: url('Images/header1.jpg');
@@ -21,23 +22,36 @@
   background-position: center;
   background-repeat: no-repeat;
   color: black;
-  padding: 20px;
+  padding: 2% 2%;
   text-align: center;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 2%;
 }
 
-.header-icon {
-  width: 100px;
+.header-icon,
+.header-icon2 {
+  width: 15%;
+  max-width: 80px;
   height: auto;
 }
-    .header-icon2 {
-  width: 100px;
-  height: auto;
-      margin-right: 0px；
+
+h1 {
+  font-size: 5vw;
+  margin: 0;
+  width: 100%;
+  line-height: 1.2;
+  word-break: break-word;
 }
+
+p {
+  font-size: 1.2em;
+  width: 100%;
+  margin: 5px 0 0;
+}
+
 
     h1 {
   margin: 0; font-size: 2.8em; }
@@ -120,12 +134,16 @@ footer p {
 
 
   <header>
-  <img src="Images/chromo1.jpg" class="header-icon">
-    <h1>Chromie & The Cell Cycle Circus</h1>
-    <br>
-    <p>The Drama, The Romance, The Splitting-Up Feels!</p>
-    <img src ="Images/chromo2.jpg" class="header-icon2">
+    <img src="Images/chromo1.jpg" class="header-icon left-icon">
+    
+    <div class="header-text">
+      <h1>Chromie & The Cell Cycle Circus</h1>
+      <p>The Drama, The Romance, The Splitting-Up Feels!</p>
+    </div>
+    
+    <img src="Images/chromo2.jpg" class="header-icon right-icon">
   </header>
+  
   <div class="page-wrapper">
   <section style="cursor: default;">
   <h2>CONCEPT HIGHLIGHTS: Introduce Chromie</h2>
@@ -212,54 +230,3 @@ footer p {
     (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="STSTJwg07d9WPTV7bPW3w";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
