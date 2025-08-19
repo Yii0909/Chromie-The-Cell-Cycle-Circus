@@ -40,9 +40,15 @@
 }
 
     h1 {
-      margin: 0;
-      font-size: 2.8em;
-    }
+  font-size: 6vw; /* scales with viewport width */
+}
+
+.header-icon,
+.header-icon2 {
+  width: 20vw; /* scales with screen size */
+  max-width: 100px; /* prevents it from getting too big */
+}
+
     h2 {
       color: #5e5e5e;
     }
@@ -80,6 +86,32 @@
     html, body {
   height: 100%;
   margin: 0;
+}
+
+    @media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    padding: 10px;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .header-icon,
+  .header-icon2 {
+    width: 60px;
+  }
+
+  h1 {
+    font-size: 1.8em;
+  }
+
+  p {
+    font-size: 0.9em;
+  }
+}
+
+    header {
+  flex-wrap: wrap;
 }
 
 footer {
@@ -146,7 +178,7 @@ footer p {
     </div>
     </div>
       <div class="slide" onclick="window.open('https://www.youtube.com/watch?v=zrKdz93WlVk', '_blank')" style="cursor: pointer;">
-      <div class="chromie-dialogue">💖 Mitosis & Meiosis: Side by Side Comparison - “A visual split-screen breakdown that makes the differences crystal clear.”</div>
+      <div class="chromie-dialogue">🧪 Mitosis & Meiosis: Side by Side Comparison - “A visual split-screen breakdown that makes the differences crystal clear.”</div>
     </div>
   </section>
   
@@ -214,6 +246,7 @@ footer p {
     (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="STSTJwg07d9WPTV7bPW3w";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
 </html>
+
 
 
 
