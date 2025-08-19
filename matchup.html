@@ -113,6 +113,12 @@
   const dropZones = document.querySelectorAll('.drop-zone');
   const result = document.getElementById('result');
 
+  const successColors = {
+    A: '#ffd966',
+    B: '#9fc5e8',
+    C: '#b6d7a8'
+  };
+
   dragItems.forEach(item => {
     item.addEventListener('click', () => {
       selectedChromosome = item.dataset.type;
@@ -130,7 +136,7 @@
       const matchType = zone.dataset.match;
       if (selectedChromosome === matchType) {
         result.textContent = `✅ Correct! ${selectedChromosome} matched with Pair ${matchType}`;
-        zone.style.background = '#a5f2a5';
+        zone.style.background = successColors[matchType];
         matchedPairs.add(matchType);
       } else {
         result.textContent = `❌ Oops! ${selectedChromosome} doesn't match Pair ${matchType}`;
@@ -140,10 +146,11 @@
       selectedChromosome = null;
 
       setTimeout(() => {
-        zone.style.background = '#e0ffe0';
+        if (!matchedPairs.has(matchType)) {
+          zone.style.background = '#e0ffe0';
+        }
       }, 1000);
 
-      // Check if all pairs are matched
       if (matchedPairs.size === dropZones.length) {
         setTimeout(() => {
           result.textContent = "🎉 All pairs matched! You’re a homologous hero!";
@@ -153,11 +160,13 @@
   });
 </script>
 
+
 </body>
   <script>
     (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="STSTJwg07d9WPTV7bPW3w";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
 </script>
 </html>
+
 
 
 
