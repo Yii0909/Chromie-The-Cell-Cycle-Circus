@@ -51,11 +51,12 @@
   box-shadow: 0 0 5px rgba(60, 60, 60, 0.772);
   color:#555;
 }
+    
     #backButton {
   position: fixed;
   bottom: 20px;
-  right: 60px;
-  background-color: #8a868e;
+  right: 80px;
+  background-color: white;
   color: white;
   border: none;
   border-radius: 50px;
@@ -68,9 +69,8 @@
 }
 
 #backButton:hover {
-  background-color: #8a868e;
+  background-color: white;
 }
-
   </style>
 </head>
 <body>
@@ -167,9 +167,15 @@ kinetochore microtubules coming from opposite poles. </p>
 
   </script>
   
-
+<button id="backButton">🔙</button>
 </body>
+<script>
+  document.getElementById('backButton').addEventListener('click', () => {
+  window.history.back(); // Goes to the previous page
+});
+</script>
 </html>
+
 
 
 
