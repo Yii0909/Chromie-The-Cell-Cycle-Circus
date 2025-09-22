@@ -8,25 +8,27 @@
   <style>
     body {
       font-family:  'Segoe UI', sans-serif;
-      background-color: #dcdcdc;
+      background-color: #b0cbe4;
       color: #333;
       padding: 20px;
     }
     h1 {
       text-align: center;
-      color: #4e4e4e;
+      color: #393e48;
     }
     .quiz-container {
       max-width: 700px;
       margin: 0 auto;
       background-color: #ffffff;
-      border: 2px dashed #c7c7c7;
+      border: 2px dashed #596071;
       padding: 20px;
       border-radius: 12px;
     }
+
     .question {
       margin-bottom: 25px;
     }
+
     .question h3 {
       margin-bottom: 10px;
     }
@@ -35,6 +37,15 @@
       margin-bottom: 6px;
       cursor: pointer;
     }
+    .button-group {
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  align-items: center;
+  gap: 10px; /* controls spacing between buttons */
+  margin-top: 20px;
+}
+
+
     .submit-button {
       background-color: #656565;
       color: white;
@@ -43,9 +54,11 @@
       font-size: 1.2em;
       border-radius: 8px;
       cursor: pointer;
+      text-align: center;
     }
+
     .back-button {
-  background-color: #c7c7c7;
+  background-color: #b0cbe4;
   color: #333;
   padding: 10px 20px;
   border: none;
@@ -76,158 +89,200 @@
   </style>
 </head>
 <body>
-
   <h1>🧠 Chromie’s Cell Division Quiz</h1>
-  <div class="quiz-container">
-    
-    <div class="question">
-      <h3>1. What phase of mitosis do chromosomes line up in the middle?</h3>
-      <label><input type="radio" name="q1"> Prophase</label>
-      <label><input type="radio" name="q1"> Metaphase</label>
-      <label><input type="radio" name="q1"> Telophase</label>
-    </div>
 
-    <div class="question">
-      <h3>2. Which process results in four genetically unique cells?</h3>
-      <label><input type="radio" name="q2"> Mitosis</label>
-      <label><input type="radio" name="q2"> Meiosis</label>
-      <label><input type="radio" name="q2"> Binary Fission</label>
-    </div>
+  <div class="quiz-container" id="quizForm"></div>
 
-    <div class="question">
-      <h3>3. What structure pulls chromosomes apart during cell division?</h3>
-      <label><input type="radio" name="q3"> Spindle fibers</label>
-      <label><input type="radio" name="q3"> Ribosomes</label>
-      <label><input type="radio" name="q3"> Lysosomes</label>
-    </div>
+<div class="button-group">
+  <button class="submit-button" id="submitQuiz">Submit Answers</button>
+  <button class="submit-button" onclick="window.location.href='bio.html'">Back to Home</button>
+</div>
 
-    <div class="question">
-      <h3>4. What’s Chromie’s favorite phase?</h3>
-      <label><input type="radio" name="q4"> Interphase (napping)</label>
-      <label><input type="radio" name="q4"> Metaphase (posing)</label>
-      <label><input type="radio" name="q4"> Cytokinesis (buh bye!)</label>
-    </div>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { getFirestore, doc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { setDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+import { Timestamp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
 
-    <div class="question">
-        <h3>5. What is the primary purpose of mitosis? </h3>
-        <label><input type="radio" name="q5"> To produce energy for the cell</label>
-        <label><input type="radio" name="q5"> To create two identical daughter cells</label>
-        <label><input type="radio" name="q5"> To repair damage DNA</label>
-      </div>
+const firebaseConfig = {
+  apiKey: "AIzaSyAxVQYxGfceb_Hu4FcGFDVduFKa5atIfgE",
+  authDomain: "chromiencellcyclecircus.firebaseapp.com",
+  projectId: "chromiencellcyclecircus",
+  storageBucket: "chromiencellcyclecircus.firebasestorage.app",
+  messagingSenderId: "274813718407",
+  appId: "1:274813718407:web:7724d59ced02b0de7b8d22",
+  measurementId: "G-MP9JGD7VB3"
+};
 
-      <div class="question">
-        <h3>6. During which phase of mitosis do sister chromatids seperate?</h3>
-        <label><input type="radio" name="q6"> Prophase</label>
-        <label><input type="radio" name="q6"> Metaphase</label>
-        <label><input type="radio" name="q6"> Anaphase</label>
-      </div>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
 
-      <div class="question">
-        <h3>7. What is the role of spindle fibers during cell division?</h3>
-        <label><input type="radio" name="q7"> To replicate DNA</label>
-        <label><input type="radio" name="q7"> To pull chromosomes apart</label>
-        <label><input type="radio" name="q7"> To form the nuclear envelope</label>
-      </div>
+// 🧠 Question Pool
+const questionPool = [
+  { id: "q1", category: "Mitosis", question: "What phase of mitosis do chromosomes line up in the middle?", options: ["Prophase", "Metaphase", "Telophase"], answer: "Metaphase", explanation: "Metaphase is when chromosomes align at the cell's equator for separation." },
+  { id: "q2", category: "Meiosis", question: "Which process results in four genetically unique cells?", options: ["Mitosis", "Meiosis", "Binary Fission"], answer: "Meiosis", explanation: "Meiosis produces four genetically diverse gametes through recombination." },
+  { id: "q3", category: "Overall", question: "What structure pulls chromosomes apart during cell division?", options: ["Spindle fibers", "Ribosomes", "Lysosomes"], answer: "Spindle fibers", explanation: "Spindle fibers attach to chromosomes and pull them to opposite poles." },
+  { id: "q4", category: "Mitosis", question: "What’s Chromie’s favorite phase?", options: ["Interphase", "Metaphase", "Cytokinesis"], answer: "Metaphase", explanation: "Chromie loves Metaphase—it's the center-stage posing moment." },
+  { id: "q5", category: "Mitosis", question: "What is the primary purpose of mitosis?", options: ["To produce energy for the cell", "To create two identical daughter cells", "To repair damage DNA"], answer: "To create two identical daughter cells", explanation: "Mitosis creates two genetically identical daughter cells." },
+  { id: "q6", category: "Mitosis", question: "During which phase of mitosis do sister chromatids separate?", options: ["Prophase", "Metaphase", "Anaphase"], answer: "Anaphase", explanation: "In Anaphase, sister chromatids are pulled apart toward opposite sides." },
+  { id: "q7", category: "Overall", question: "What is the role of spindle fibers during cell division?", options: ["To replicate DNA", "To pull chromosomes apart", "To form the nuclear envelope"], answer: "To pull chromosomes apart", explanation: "Spindle fibers physically move chromosomes during division." },
+  { id: "q8", category: "Overall", question: "What is the main difference between mitosis and meiosis?", options: ["Mitosis involves crossing over", "Mitosis creates identical cells", "Mitosis occurs in gametes"], answer: "Mitosis creates identical cells", explanation: "Meiosis includes recombination and results in genetically diverse cells." },
+  { id: "q9", category: "Meiosis", question: "What is the name of the structure where crossing over occurs during meiosis?", options: ["Centromere", "Chiasma", "Nucleolus"], answer: "Chiasma", explanation: "Chiasma is the crossover point between homologous chromosomes during meiosis." },
+  {id: "q10", category: "Overall", question: "When a cell stop growing, say due to a shortage of nutrients, this will occur in which phase of cell cycle?", options: ["G1", "S", "G2","M"], answer: "G1", explanation: "If a cell encounters unfavorable conditions, such as a shortage of nutrients, it can exit the cell cycle from G1 and enter a quiescent state known as G0, where it stops growing and dividing until conditions improve."},
+{
+	id: "q11",
+	category: "Meiosis",
+    	question: "If at the end of meiosis, the four daughter cells have four chromosomes, how many chromosomes were in the mother cell? ",
+    	options: ["2", "4", "8","16"],
+   	answer: "8",
+	explanation: " if the four daughter cells each have 4 chromosomes, the original mother cell (which is diploid) must have had double that amount."
+	},
+{
+id: "q12",
+	category: "Meiosis",
+    	question: "How many daughter cells are produced by meiosis? ",
+    	options: ["2", "4", "8"],
+   	answer: "4",
+	explanation: " Meiosis is a type of cell division that results in four daughter cells, each with half the number of chromosomes as the parent cell."
+	},
+];
 
-      <div class="question">
-        <h3>8. What is the main difference between mitosis and meiosis?</h3>
-        <label><input type="radio" name="q8"> Mitosis involves crossing over, while meiosis does not</label>
-        <label><input type="radio" name="q8"> Mitosis create identical cells, while meiosis creates genetically unique cells</label>
-        <label><input type="radio" name="q8"> Mitosis occurs in gametes, while meiosis occurs in somatic cells</label>
-      </div>
-
-      <div class="question">
-        <h3>9. What is the name of the structure where crossing over occurs duirng meiosis?</h3>
-        <label><input type="radio" name="q9"> Centromere</label>
-        <label><input type="radio" name="q9"> Chiasma</label>
-        <label><input type="radio" name="q9"> Nucleolus</label>
-      </div>
-
-    <button class="submit-button" onclick="alert('Feature coming soon… Chromie’s working on it!')">
-      Submit Answers
-    </button>
-    <br>
-    <br>
-  
-    <button class="submit-button" onclick="window.location.href='index.html'">
-        ⬅️ Back to Home
-      </button>
-      
-  </div>
-
-  <script>
-    const correctAnswers = {
-      q1: "Metaphase",
-      q2: "Meiosis",
-      q3: "Spindle fibers",
-      q4: "Metaphase (posing)",
-      q5: "To create two identical daughter cells",
-      q6: "Anaphase",
-      q7: "To pull chromosomes apart",
-      q8: "Mitosis create identical cells, while meiosis creates genetically unique cells",
-      q9: "Chiasma"
-    };
-  
-    const explanations = {
-      q1: "Metaphase is when chromosomes align at the cell's equator for separation.",
-      q2: "Meiosis produces four genetically diverse gametes through recombination.",
-      q3: "Spindle fibers attach to chromosomes and pull them to opposite poles.",
-      q4: "Chromie loves Metaphase—it's the center-stage posing moment.",
-      q5: "Mitosis creates two genetically identical daughter cells.",
-      q6: "In Anaphase, sister chromatids are pulled apart toward opposite sides.",
-      q7: "Spindle fibers physically move chromosomes during division.",
-      q8: "Meiosis includes recombination and results in genetically diverse cells.",
-      q9: "Chiasma is the crossover point between homologous chromosomes during meiosis."
-    };
-  
-    function checkAnswers() {
-      let total = 9;
-      let correct = 0;
-      let feedback = "";
-  
-      for (let i = 1; i <= total; i++) {
-        const radios = document.getElementsByName("q" + i);
-        let userAnswer = null;
-        for (const radio of radios) {
-          if (radio.checked) {
-            userAnswer = radio.parentElement.innerText.trim();
-            break;
-          }
-        }
-  
-        if (userAnswer === correctAnswers["q" + i]) {
-          correct++;
-        } else {
-          feedback += `Question ${i}: ❌ Incorrect. ${explanations["q" + i]}\n\n`;
-        }
-      }
-  
-      const score = Math.round((correct / total) * 100);
-      alert(`✅ You scored ${score}% (${correct}/${total})\n\n${feedback}`);
-
-      if (score < 60) {
-  alert("💪 Chromie says: Work harder! You’ve got potential!");
-} else {
-  alert("🎉 Chromie says: Congrats! Cell-tacular job!");
+// 🔀 Shuffle helper
+function shuffle(array) {
+  return array.sort(() => Math.random() - 0.5);
 }
 
-      
+// 🎯 Weighted scoring
+const categoryWeights = {
+  Mitosis: 1.5,
+  Meiosis: 1.5,
+  Overall: 2
+};
 
+// 🧪 Render Quiz
+const selectedQuestions = shuffle(questionPool).slice(0, 10);
+const quizForm = document.getElementById("quizForm");
+
+selectedQuestions.forEach((q, index) => {
+  const div = document.createElement("div");
+  div.className = "question";
+  div.innerHTML = `<h3>${index + 1}. ${q.question}</h3>` +
+    q.options.map(opt => `<label><input type="radio" name="${q.id}" value="${opt}"> ${opt}</label>`).join("");
+  quizForm.appendChild(div);
+});
+
+// 🧠 Submit Logic
+document.getElementById("submitQuiz").onclick = async function () {
+  let totalWeight = 0;
+  let earnedWeight = 0;
+  let feedback = "";
+  const categoryScores = {};
+
+  selectedQuestions.forEach((q, i) => {
+    const radios = document.getElementsByName(q.id);
+    let userAnswer = null;
+    for (const radio of radios) {
+      if (radio.checked) {
+        userAnswer = radio.value;
+        break;
+      }
     }
+
+    const weight = categoryWeights[q.category.trim()] || 1;
+    totalWeight += weight;
+
+    const cat = q.category.trim();
+    if (!categoryScores[cat]) {
+      categoryScores[cat] = { correct: 0, total: 0 };
+    }
+    categoryScores[cat].total++;
+    if (userAnswer === q.answer) {
+      earnedWeight += weight;
+      categoryScores[cat].correct++;
+    } else {
+      feedback += `Question ${i + 1}: ❌ Incorrect. ${q.explanation}\n\n`;
+    }
+  });
+
+  const score = Math.round((earnedWeight / totalWeight) * 100);
+  alert(`✅ You scored ${score}%\n\n${feedback}`);
+
+  if (score < 60) {
+    alert("💪 Chromie says: Work harder! You’ve got potential!");
+  } else {
+    alert("🎉 Chromie says: Congrats! Cell-tacular job!");
+  }
+
+  const user = auth.currentUser;
+  if (!user) {
+    alert("⚠️ You must be logged in to save your score.");
+    return;
+  }
+
+  const userRef = doc(db, "users", user.uid);
+
+  try {
+    const userSnap = await getDoc(userRef);
+    const data = userSnap.exists() ? userSnap.data() : {};
+    const previousHistory = data.achievements?.quizHistory || [];
+
+    const newEntry = {
+  score,
+  timestamp: Timestamp.fromDate(new Date())
+};
+
+    const updatedHistory = [...previousHistory, newEntry];
+
+    const updates = {
+      achievements: {
+        quizScore: score,
+        quizHistory: updatedHistory
+      },
+      quizProgress: {}
+    };
+
+    for (const [cat, { correct, total }] of Object.entries(categoryScores)) {
+      updates.quizProgress[cat] = {
+        score: correct,
+        total,
+        updatedAt: new Date()
+      };
+    }
+    
+    console.log("Saving to Firestore:", updates);
+
+        await updateDoc(userRef, {
+      "achievements.quizScore": score,
+      "achievements.quizHistory": updatedHistory,
+      ...Object.fromEntries(
+        Object.entries(categoryScores).map(([cat, { correct, total }]) => [
+          `quizProgress.${cat}`,
+          {
+            score: correct,
+            total,
+            updatedAt: Timestamp.fromDate(new Date())
+          }
+        ])
+      )
+    });
+
+  } catch (error) {
+    console.error("❌ Firestore update failed:", error.code, error.message);
+    alert("⚠️ Failed to save your score. Please try again.");
+  }
+}; // Close submitQuiz.onclick
+
+</script>
+
+</body>
+
   
-    document.querySelector(".submit-button").onclick = checkAnswers;
-
+  <script>
     (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="STSTJwg07d9WPTV7bPW3w";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
-
-  </script>
+</script>
   
 
 </body>
 </html>
-
-
-
-
-
-
-
