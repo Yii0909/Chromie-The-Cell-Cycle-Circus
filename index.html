@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="Images/chromie.png">
+  <title>Chromie Portal</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #3574b3, #cff7ee);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      width: 85%;
+      max-width: 300px;
+      max-height: 250px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 0px;
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 92%;
+      padding: 12px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.8em;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3574b3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 0.8em;
+      cursor: pointer;
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.8em;
+    }
+
+    .toggle a {
+      color: #3574b3;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1 style="position: absolute; top: 40px; text-align: center; width: 100%; color: white; font-size: 4em;">
+    Chromie & The Cell Cycle Circus
+  </h1>  
+  <div class="container">
+    <div id="loginForm">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button onclick="logIn()">Log In</button> 
+      <button onclick="logInAsGuest()" style="margin-top: 10px;">Log In as Guest</button>
+      <div class="toggle">
+        Don't have an account? <a onclick="toggleForms()">Sign Up</a>
+      </div>
+    </div>
+
+    <div id="signupForm" class="hidden">
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Name" required>
+<input type="email" id="signupEmail" placeholder="Email" required>
+<input type="password" id="signupPassword" placeholder="Password" required>
+<button onclick="signUp()">Sign Up</button>
+      <div class="toggle">
+        Already have an account? <a onclick="toggleForms()">Log In</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleForms() {
+      const login = document.getElementById('loginForm');
+      const signup = document.getElementById('signupForm');
+      login.classList.toggle('hidden');
+      signup.classList.toggle('hidden');
+    }
+</script>
+
+<script type ="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAxVQYxGfceb_Hu4FcGFDVduFKa5atIfgE",
+  authDomain: "chromiencellcyclecircus.firebaseapp.com",
+  projectId: "chromiencellcyclecircus",
+  storageBucket: "chromiencellcyclecircus.firebasestorage.app",
+  messagingSenderId: "274813718407",
+  appId: "1:274813718407:web:7724d59ced02b0de7b8d22",
+  measurementId: "G-MP9JGD7VB3"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+window.logIn = function () {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  if (!email || !password) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "bio.html";
+    })
+    .catch((error) => alert(error.message));
+};
+
+window.signUp = async function () {
+  const name = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  if (!name || !email || !password) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    const userRef = doc(db, "users", user.uid);
+
+    // Save basic user info
+    await setDoc(userRef, {
+      name: name,
+      email: email,
+      createdAt: new Date()
+    });
+
+    // Save achievements
+    await updateDoc(userRef, {
+      achievements: {
+        quizScore: 90,
+        gamesPlayed: {
+          matchup: true,
+          maze: false
+        },
+        videosWatched: {
+          mitosis: true
+        },
+        figmaClicked: true,
+        notesViewed: ["mitosis_notes"]
+      }
+    });
+
+    alert("Sign-up successful! 🎉 Chromie welcomes you to the circus!");
+    window.location.href = "bio.html";
+
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+window.testFirestore = async function () {
+  try {
+    const testRef = doc(db, "testCollection", "testDoc");
+    await setDoc(testRef, { hello: "world", timestamp: new Date() });
+    alert("✅ Firestore write successful!");
+  } catch (error) {
+    console.error("❌ Firestore write failed:", error);
+    alert("Firestore write failed. Check console for details.");
+  }
+};
+import { signInAnonymously } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+window.logInAsGuest = async function () {
+  try {
+    const result = await signInAnonymously(auth);
+    const user = result.user;
+
+    // Optional: Create a basic guest profile in Firestore
+    const userRef = doc(db, "users", user.uid);
+    await setDoc(userRef, {
+      name: "Guest",
+      email: "guest@chromie.com",
+      createdAt: new Date(),
+      isGuest: true
+    }, { merge: true });
+
+    alert("🎪 Welcome, Guest! Enjoy the Cell Cycle Circus!");
+    window.location.href = "bio.html";
+  } catch (error) {
+    console.error("❌ Guest login failed:", error);
+    alert("Guest login failed. Check console for details.");
+  }
+};
+</script>
+
+</body>
+</html>
+
+
