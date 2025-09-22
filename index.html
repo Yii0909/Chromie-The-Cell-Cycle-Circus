@@ -3,331 +3,231 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/png" href="Images/chromie.png">
-  <title>Chromie & The Cell Cycle Circus</title>
+  <title>Chromie Portal</title>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #e2e2e2;
-      color: #333;
+      background: linear-gradient(to bottom, #3574b3, #cff7ee);
       margin: 0;
       padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
     }
 
-  header {
-  position: fixed;
-  width: 100%;
-  background-image: url('Images/header4.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  color: white;
-  padding: 2% 2%;
-  text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap: 2%;
-}
-
-.header-icon,
-.header-icon2 {
-  width: 20%;
-  max-width: 80px;
-  height: auto;
-}
-
-    @media screen and (max-width: 600px) {
-    .page-wrapper {
-    padding-top: 80px; /* or even 60px */
-  }
-      
-  header {
-    flex-direction: row;
-    justify-content: space-between;
-    padding: 0.1% 0.1%;
-  }
-
-  .header-icon {
-    width: 18%;
-    max-width: 60px;
-  }
-
-  .header-text h1 {
-    font-size: 4vw;
-  }
-
-  .header-text p {
-    font-size: 2.5vw;
-  }
-
-  .page-wrapper {
-    padding-top: 10px;
-  }
-
-  h2 {
-    font-size: 6vw;
-  }
-
-  body p {
-    font-size: 4vw;
-  }
-
-  .chromie-dialogue {
-    font-size: 3.8vw;
-  }
-      
-  footer {
-    font-size: 3.5vw; /* or try 4vw for extra flair */
-  }
-
-  footer p {
-    font-size: 3vw;
-  }
-}
-
-
-h1 {
-  font-size: 4vw;
-  margin: 0;
-  width: 100%;
-  line-height: 1.2;
-  word-break: break-word;
-}
-
-p {
-  font-size: 1.2em;
-  width: 100%;
-  margin: 5px 0 5px;
-  
-}
+    .container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      width: 85%;
+      max-width: 300px;
+      max-height: 250px;
+    }
 
     h2 {
-      color: #5e5e5e; font size: 3vw;
+      text-align: center;
+      margin-top: 0px;
+      margin-bottom: 10px;
+      font-size: 1.3em;
     }
-    section {
-      padding: 30px;
-      border-bottom: 2px dashed #656565;
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 92%;
+      padding: 12px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 0.8em;
     }
-    .slide {
-      margin-bottom: 20px;
-    }
-    .chromie-dialogue {
-      background-color: #cfcfcf;
-      padding: 10px;
-      border-left: 5px solid #8e8e8e;
-      font-style: italic;
-    }
-    .quiz-button {
-      background-color: #000000;
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3574b3;
       color: white;
-      padding: 12px 24px;
       border: none;
+      border-radius: 6px;
+      font-size: 0.8em;
       cursor: pointer;
-      font-size: 1.2em;
-      border-radius: 8px;
     }
-  body {
-    animation: fadeIn 1s ease-in-out;
-  }
 
-  @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.98); }
-    to { opacity: 1; transform: scale(1); }
-  }
+    .toggle {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.8em;
+    }
 
-    html, body {
-  height: 100%;
-  margin: 0;
-}
+    .toggle a {
+      color: #3574b3;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #63666A; /* dark grey */
-  color: #ffffff;       /* white text */
-  font-size: 0.8em;
-  padding: 6px 12px;   /* thinner padding */
-  border-top: 2px dashed #aaa;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-}
-
-.page-wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  padding-bottom: 60px; /* matches new footer height */
-  padding-top: 150px;
-}
-    
-footer p {
-  text-align: center;
-  margin: 4px 0;
-  margin-top: 1px;
-  footer style="white; 
-}
-
-
-@keyframes slideUp {
-  from { transform: translateY(100%); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
+    .hidden {
+      display: none;
+    }
   </style>
 </head>
 <body>
+  <h1 style="position: absolute; top: 40px; text-align: center; width: 100%; color: white; font-size: 4em;">
+    Chromie & The Cell Cycle Circus
+  </h1>  
+  <div class="container">
+    <div id="loginForm">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button onclick="logIn()">Log In</button> 
+      <button onclick="logInAsGuest()" style="margin-top: 10px;">Log In as Guest</button>
+      <div class="toggle">
+        Don't have an account? <a onclick="toggleForms()">Sign Up</a>
+      </div>
+    </div>
 
-
-  <header>
-    <img src="Images/chromo1.jpg" class="header-icon left-icon">
-    
-    <div class="header-text">
-      <h1>Chromie & The Cell Cycle Circus</h1>
-      <p>The Drama, The Romance, The Splitting-Up Feels!</p>
+    <div id="signupForm" class="hidden">
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Name" required>
+<input type="email" id="signupEmail" placeholder="Email" required>
+<input type="password" id="signupPassword" placeholder="Password" required>
+<button onclick="signUp()">Sign Up</button>
+      <div class="toggle">
+        Already have an account? <a onclick="toggleForms()">Log In</a>
+      </div>
     </div>
-    
-    <img src="Images/chromo2.jpg" class="header-icon right-icon">
-  </header>
-  
-  <div class="page-wrapper">
-  <section style="cursor: default;">
-  <h2>CONCEPT HIGHLIGHTS: Introduce Chromie</h2>
-  <p>SHORT NOTES: Chromie-approved notes for rapid replication.</p>
-    <div class="slide" onclick="window.location.href = 'mitosis.html'" style="cursor: pointer;">
-      <div class="chromie-dialogue">📸 Mitosis - "Still wondering? Let's dive into the explanation."</div>
-    </div>
-    <div class="slide" onclick="window.location.href= 'meiosis.html'" style="cursor: pointer;">
-      <div class="chromie-dialogue">💖 Meiosis - “Half the chromosomes, twice the excitement!”</div>
-    </div>
-    <p>VIDEOS: Watch and replicate—just like your favorite cells!</p>
-      <div class="slide" onclick="window.open('https://www.youtube.com/watch?v=ofjyw7ARP1c&t=1s', '_blank')" style="cursor: pointer;">
-      <div class="chromie-dialogue">📸 Mitosis - “One cell, two identical stars—Chromie’s mitotic magic!”</div>
-    </div>
-      <div class="slide" onclick="window.open('https://www.youtube.com/watch?v=nMEyeKQClqI', '_blank')" style="cursor: pointer;">
-      <div class="chromie-dialogue">💖 Meiosis - “Chromie’s Guide to Cellular Choreography—watch the steps, spot the differences!”</div>
-    </div>
-      <div class="slide" onclick="window.open('https://www.youtube.com/watch?v=zrKdz93WlVk', '_blank')" style="cursor: pointer;">
-      <div class="chromie-dialogue">🧪 Mitosis & Meiosis: Side by Side Comparison - “A visual split-screen breakdown that makes the differences crystal clear.”</div>
-    </div>
-  </section>
-  
-  <section style="cursor: default;">
-  <h2>COMIC TIME: Meet Chromie</h2>
-    <div class="slide" onclick="window.open('https://www.figma.com/proto/Z9gHOxxNHZOleKdIhn0U6h/Chromie---The-Cell-Cycle-Circus?node-id=66-01&t=N3Cm86sHX56oL0m7-1', '_blank')" style="cursor: pointer;">
-      <p>Chromie poses like a DNA-caped superhero on a nucleus stage.</p>
-      <div class="chromie-dialogue">🧬 "I’m Chromie—your genetic VIP! 3 billion base pairs of fabulous!"</div>
-    </div>
-    <div class="slide" onclick="window.open('https://www.figma.com/proto/Z9gHOxxNHZOleKdIhn0U6h/Chromie---The-Cell-Cycle-Circus?node-id=66-28&t=N3Cm86sHX56oL0m7-1', '_blank')" style="cursor: pointer;">
-      <p>Mitosis — Copy Paste Gone Wild: Chromie duplicates like a TikTok trend—chromatid selfie time.</p>
-      <div class="chromie-dialogue">📸 "Mitosis: Because your skin cells ghost you daily."</div>
-    </div>
-    <div class="slide" onclick="window.open('https://www.figma.com/proto/Z9gHOxxNHZOleKdIhn0U6h/Chromie---The-Cell-Cycle-Circus?node-id=66-44&t=N3Cm86sHX56oL0m7-1', '_blank')" style="cursor: pointer;">
-      <p>Meiosis — Tinder for Chromosomes: Homologous chromosomes swipe right and cross over like a Netflix binge.</p>
-      <div class="chromie-dialogue">💖 "Our genes would make such cute babies…" </div>
-    </div>
-  </section>
-
-  <section style="cursor: default;">
-  <h2>GAME TIME: Mini Game Madness</h2>
-    <div class="slide" onclick="window.location.href= 'matchup.html'" style="cursor: pointer;">
-      <p>Chromosome Match-Up</p>
-      <div class="chromie-dialogue">🫂 "Chromie needs to find his/her partner."</div>
-    </div>
-    <div class="slide" onclick="window.location.href= 'maze.html'" style="cursor: pointer;">
-      <p>Spindle Fiber Maze</p>
-      <div class="chromie-dialogue">🎮 "Chromie needs to get energy, ATP and complete the maze." </div>
-    </div>
-  </section>
-  
-  <section>
-    <h2>Ready to Test Your Chromie Knowledge?</h2>
-    <button onclick="launchQuiz()" class="quiz-button">
-      Fun Quiz
-    </button>
-    <button onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSf7DpCSoeikEbcuXgrLPkY1UT0uqqfKfKPjR68_MwxVML5aAg/viewform?usp=header', '_blank')" class="quiz-button">
-      REAL Quiz
-    </button>
-
-    
-  </section>
-
-  <audio id="chromieSound" src="chromie_intro.mp3" preload="auto"></audio>
-
-<script>
-  function launchQuiz() {
-  document.getElementById("chromieSound").play();
-  setTimeout(() => {
-    window.location.href = 'chromie_quiz.html';
-
-  }, 800);
-}
-
-</script>
-  <footer style="font-size: 1vw;">
-    <center><p>🔬 Made with curiosity and chromosomes by <strong>Chromie Crews</strong></p>
-    <p style="margin-top: 1px;">
-    </p>
-  </footer>
-</div>
-</body>
+  </div>
 
   <script>
-    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="STSTJwg07d9WPTV7bPW3w";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+    function toggleForms() {
+      const login = document.getElementById('loginForm');
+      const signup = document.getElementById('signupForm');
+      login.classList.toggle('hidden');
+      signup.classList.toggle('hidden');
+    }
 </script>
+
+<script type ="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAxVQYxGfceb_Hu4FcGFDVduFKa5atIfgE",
+  authDomain: "chromiencellcyclecircus.firebaseapp.com",
+  projectId: "chromiencellcyclecircus",
+  storageBucket: "chromiencellcyclecircus.firebasestorage.app",
+  messagingSenderId: "274813718407",
+  appId: "1:274813718407:web:7724d59ced02b0de7b8d22",
+  measurementId: "G-MP9JGD7VB3"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+window.logIn = function () {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  if (!email || !password) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "bio.html";
+    })
+    .catch((error) => alert(error.message));
+};
+
+window.signUp = async function () {
+  const name = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  if (!name || !email || !password) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    const userRef = doc(db, "users", user.uid);
+
+    // Save basic user info
+    await setDoc(userRef, {
+      name: name,
+      email: email,
+      createdAt: new Date()
+    });
+
+    // Save achievements
+    await updateDoc(userRef, {
+      achievements: {
+        quizScore: 90,
+        gamesPlayed: {
+          matchup: true,
+          maze: false
+        },
+        videosWatched: {
+          mitosis: true
+        },
+        figmaClicked: true,
+        notesViewed: ["mitosis_notes"]
+      }
+    });
+
+    alert("Sign-up successful! 🎉 Chromie welcomes you to the circus!");
+    window.location.href = "bio.html";
+
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+window.testFirestore = async function () {
+  try {
+    const testRef = doc(db, "testCollection", "testDoc");
+    await setDoc(testRef, { hello: "world", timestamp: new Date() });
+    alert("✅ Firestore write successful!");
+  } catch (error) {
+    console.error("❌ Firestore write failed:", error);
+    alert("Firestore write failed. Check console for details.");
+  }
+};
+import { signInAnonymously } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+window.logInAsGuest = async function () {
+  try {
+    const result = await signInAnonymously(auth);
+    const user = result.user;
+
+    // Optional: Create a basic guest profile in Firestore
+    const userRef = doc(db, "users", user.uid);
+    await setDoc(userRef, {
+      name: "Guest",
+      email: "guest@chromie.com",
+      createdAt: new Date(),
+      isGuest: true
+    }, { merge: true });
+
+    alert("🎪 Welcome, Guest! Enjoy the Cell Cycle Circus!");
+    window.location.href = "bio.html";
+  } catch (error) {
+    console.error("❌ Guest login failed:", error);
+    alert("Guest login failed. Check console for details.");
+  }
+};
+</script>
+
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
