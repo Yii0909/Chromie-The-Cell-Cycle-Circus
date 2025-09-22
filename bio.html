@@ -30,10 +30,10 @@
   <section style="cursor: default;">
   <h2>CONCEPT HIGHLIGHTS: Introduce Chromie</h2>
   <p>SHORT NOTES: Chromie-approved notes for rapid replication.</p>
-    <div class="slide" onclick="window.location.href = 'mitosis.html'" style="cursor: pointer;">
+    <div class="slide" data-id="mitosis_notes" onclick="trackAndOpen('note', 'mitosis_notes',  'mitosis.html', true)" style="cursor: pointer;">
       <div class="chromie-dialogue">📸 Mitosis - "Still wondering? Let's dive into the explanation."</div>
     </div>
-    <div class="slide" onclick="window.location.href= 'meiosis.html'" style="cursor: pointer;">
+    <div class="slide" data-id="meiosis_notes" onclick="trackAndOpen('note', 'meiosis_notes',  'meiosis.html', true)" style="cursor: pointer;">
       <div class="chromie-dialogue">💖 Meiosis - “Half the chromosomes, twice the excitement!”</div>
     </div>
     <p>VIDEOS: Watch and replicate—just like your favorite cells!</p>
@@ -66,11 +66,11 @@
 
   <section style="cursor: default;">
   <h2>GAME TIME: Mini Game Madness</h2>
-    <div class="slide" data-id="matchup" onclick="trackAndOpen('game', 'matchup',  'matchup.html')" style="cursor: pointer;">
+    <div class="slide" data-id="matchup" onclick="trackAndOpen('game', 'matchup',  'matchup.html', true)" style="cursor: pointer;">
       <p>Chromosome Match-Up</p>
       <div class="chromie-dialogue">🫂 "Chromie needs to find his/her partner."</div>
     </div>
-    <div class="slide" data-id="maze" onclick="trackAndOpen('game', 'maze'); window.location.href= 'maze.html'" style="cursor: pointer;">
+    <div class="slide" data-id="maze" onclick="trackAndOpen('game', 'maze', 'maze.html', true)" style="cursor: pointer;">
       <p>Spindle Fiber Maze</p>
       <div class="chromie-dialogue">🎮 "Chromie needs to get energy, ATP and complete the maze." </div>
     </div>
@@ -141,31 +141,41 @@
   }
 
   window.trackInteraction = async function(type, id) {
-    const user = auth.currentUser;
-    if (!user) {
-      alert("Please log in to save progress!");
-      return;
-    }
+  console.log("✅ trackInteraction called:", type, id);
+  const user = auth.currentUser;
+  if (!user) {
+    alert("Please log in to save progress!");
+    return;
+  }
 
-    const userRef = doc(db, "users", user.uid);
-    try {
-      await updateDoc(userRef, {
-        [`${type === "note" ? "notesViewed" :
-            type === "video" ? "videosWatched" :
-            type === "comic" ? "comicsViewed" :
-            type === "game" ? "gamesPlayed" : "interactions"}.${id}`]: true,
-        [`interactions.${new Date().toISOString()}`]: { type, id }
-      });
-      updateBorder(id, true);
-    } catch (e) {
-      console.error("❌ Firestore update failed:", e.code, e.message);
-    }
+  const userRef = doc(db, "users", user.uid);
+  const updatePayload = {
+    [`${type === "note" ? "notesViewed" :
+        type === "video" ? "videosWatched" :
+        type === "comic" ? "comicsViewed" :
+        type === "game" ? "gamesPlayed" : "interactions"}.${id}`]: true,
+    [`interactions.${new Date().toISOString()}`]: { type, id }
   };
 
-  window.trackAndOpen = function(type, id, url) {
-    window.open(url, '_blank');
-    trackInteraction(type, id);
-  };
+  console.log("🔥 Update payload:", updatePayload);
+
+  try {
+    await updateDoc(userRef, updatePayload);
+    updateBorder(id, true);
+  } catch (e) {
+    console.error("❌ Firestore update failed:", e.code, e.message);
+  }
+};
+
+window.trackAndOpen = function(type, id, url, sameTab = false) {
+  if (sameTab) {
+    window.location.href = url; // opens in same tab
+  } else {
+    window.open(url, '_blank'); // opens in new tab
+  }
+  trackInteraction(type, id);
+};
+
 
   onAuthStateChanged(auth, async (user) => {
     if (!user) return;
@@ -189,12 +199,4 @@
     });
   });
 </script>
-
-<script>
-  window.trackAndOpen = function(type, id, url) {
-    window.open(url, '_blank');
-    trackInteraction(type, id);
-  };
-</script>
-
 </html>
