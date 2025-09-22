@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="Images/chromie.png">
+  <title>Chromosome Match-Up</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f0f8ff;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+
+    .game-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .drag-items, .drop-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .drag-item, .drop-zone {
+      width: 100px;
+      height: 100px;
+      background: #fff;
+      border: 2px dashed #888;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .drag-item img, .drop-zone img {
+      max-width: 80%;
+      max-height: 80%;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    .drop-zone {
+      background: #e0ffe0;
+      border: 2px solid #4caf50;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    @media (max-width: 600px) {
+      .drag-item, .drop-zone {
+        width: 80px;
+        height: 80px;
+        font-size: 0.8em;
+      }
+    }
+
+    #backButton {
+  position: fixed;
+  bottom: 20px;
+  right: 80px;
+  background-color: white;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 1em;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+#backButton:hover {
+  background-color: white;
+}
+
+  </style>
+</head>
+<body>
+  <h1>🧬 Chromosome Match-Up</h1>
+  <p>Tap a chromosome, then tap its homologous pair!</p>
+
+  <div class="game-container">
+    <div class="drag-items">
+      <div class="drag-item" data-type="B">
+        <img src="Images/ca1.png" alt="Chromosome B">
+      </div>
+      <div class="drag-item" data-type="A">
+        <img src="Images/cb1.png" alt="Chromosome A">
+      </div>
+      <div class="drag-item" data-type="C">
+        <img src="Images/cc1.png" alt="Chromosome C">
+      </div>
+    </div>
+
+    <div class="drop-items">
+      <div class="drop-zone" data-match="A">
+        <img src="Images/cb2.png" alt="Pair A">
+      </div>
+      <div class="drop-zone" data-match="B">
+        <img src="Images/ca2.png" alt="Pair B">
+      </div>
+      <div class="drop-zone" data-match="C">
+        <img src="Images/cc2.png" alt="Pair C">
+      </div>
+    </div>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+  let selectedChromosome = null;
+  let matchedPairs = new Set();
+  const dragItems = document.querySelectorAll('.drag-item');
+  const dropZones = document.querySelectorAll('.drop-zone');
+  const result = document.getElementById('result');
+
+  const successColors = {
+    A: '#ffd966',
+    B: '#9fc5e8',
+    C: '#b6d7a8'
+  };
+
+  dragItems.forEach(item => {
+    item.addEventListener('click', () => {
+      selectedChromosome = item.dataset.type;
+      result.textContent = `🧬 Selected Chromosome ${selectedChromosome}`;
+    });
+  });
+
+  dropZones.forEach(zone => {
+    zone.addEventListener('click', () => {
+      if (!selectedChromosome) {
+        result.textContent = "❗ Tap a chromosome first!";
+        return;
+      }
+
+      const matchType = zone.dataset.match;
+      if (selectedChromosome === matchType) {
+        result.textContent = `✅ Correct! ${selectedChromosome} matched with Pair ${matchType}`;
+        zone.style.background = successColors[matchType];
+        matchedPairs.add(matchType);
+      } else {
+        result.textContent = `❌ Oops! ${selectedChromosome} doesn't match Pair ${matchType}`;
+        zone.style.background = '#ffcccc';
+      }
+
+      selectedChromosome = null;
+
+      setTimeout(() => {
+        if (!matchedPairs.has(matchType)) {
+          zone.style.background = '#e0ffe0';
+        }
+      }, 1000);
+
+      if (matchedPairs.size === dropZones.length) {
+        setTimeout(() => {
+          result.textContent = "🎉 All pairs matched! You’re a homologous hero!";
+        }, 1100);
+      }
+    });
+  });
+</script>
+
+<button id="backButton">🔙</button>
+</body>
+  
+  <script>
+    document.getElementById('backButton').addEventListener('click', () => {
+  window.history.back(); // Goes to the previous page
+});
+
+    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="STSTJwg07d9WPTV7bPW3w";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxVQYxGfceb_Hu4FcGFDVduFKa5atIfgE",
+    authDomain: "chromiencellcyclecircus.firebaseapp.com",
+    projectId: "chromiencellcyclecircus",
+    storageBucket: "chromiencellcyclecircus.firebasestorage.app",
+    messagingSenderId: "274813718407",
+    appId: "1:274813718407:web:7724d59ced02b0de7b8d22",
+    measurementId: "G-MP9JGD7VB3"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  
+  async function recordMatchUpPlayed() {
+  const uid = auth.currentUser.uid;
+  const userRef = doc(db, "users", uid);
+  await updateDoc(userRef, {
+    "achievements.gamesPlayed.matchup": true
+  });
+}
+  // Call this when the maze is completed
+  recordMatchUpPlayed();
+
+  async function recordMatchUpPlayed() {
+  const user = auth.currentUser;
+  if (!user) {
+    console.warn("User not logged in—cannot record game progress.");
+    return;
+  }
+  const userRef = doc(db, "users", user.uid);
+  await updateDoc(userRef, {
+    "achievements.gamesPlayed.matchup": true
+  });
+}
+
+if (matchedPairs.size === dropZones.length) {
+  setTimeout(() => {
+    result.textContent = "🎉 All pairs matched! You’re a homologous hero!";
+    recordMatchUpPlayed();
+  }, 1100);
+}
+
+  </script>
+</html>

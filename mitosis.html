@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="Images/chromie.png">
+  <title>Mitosis Viewer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #cce2ef;
+      text-align: center;
+      padding: 30px;
+    }
+    h1 {
+      color: #333;
+    }
+    .btn {
+      margin: 10px;
+      padding: 12px 24px;
+      background-color: #658492;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+    }
+    .btn:hover {
+      background-color: #5e8596;
+    }
+    .phase {
+      display: none;
+      margin-top: 30px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .phase img {
+      max-width: 400px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+    .caption {
+      margin-top: 15px;
+      font-size: 1.2em;
+      color: #555;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .btn.active {
+  background-color: #ffffff;
+  box-shadow: 0 0 5px rgba(100, 112, 117, 0.772);
+  color:#444951;
+}
+    
+    #backButton {
+  position: fixed;
+  bottom: 20px;
+  right: 80px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 1em;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 1000;
+  transition: background-color 0.3s ease;
+}
+
+#nextButton:hover {
+  background-color: white;
+}
+
+ #nextButton {
+  position: fixed;
+  bottom: 20px;
+  right: 175px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 50px;
+  padding: 12px 20px;
+  font-size: 1em;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  z-index: 1000;
+}
+
+#backButton:hover {
+  background-color: white;
+}
+  </style>
+</head>
+<body>
+
+  <h1>🔬 Explore Mitosis Phases</h1>
+
+  <button class="btn" onclick="showPhase('prophase')">Prophase</button>
+  <button class="btn" onclick="showPhase('metaphase')">Metaphase</button>
+  <button class="btn" onclick="showPhase('anaphase')">Anaphase</button>
+  <button class="btn" onclick="showPhase('telophase')">Telophase</button>
+
+  <div class="caption">🔎 Click on the phases to learn more about it!</div>
+
+  <div id="prophase" class="phase">
+    <img src="Images/prophase.png" alt="Prophase illustration">
+    <div class="caption">🎬 Prophase: Chromosomes condense, spindle fibers form, and the nuclear envelope breaks down.</div>
+    <p>- The chromatin shortens and thicken and become more tightly coiled, condensing into discrete visible chromosomes.  </p>
+    <p>- Each chromosome consists of two sister chromatids attached together at the centromere. </p>
+    <br>
+    <p>− Centrosomes move away from each other.  </p>
+<p>− The mitotic spindle begins to form. </p>
+    <p>− Microtubules extend from centrosomes. </p>
+      <p>− Nucleolus disintegrate.  </p>
+<p>− At late prophase, the nuclear envelope disintegrate/ degenerated.  </p>
+  </div>
+
+  <div id="metaphase" class="phase">
+    <img src="Images/metaphase.png" alt="Metaphase illustration">
+    <div class="caption">📏 Metaphase: Chromosomes align at the cell’s equator—Chromie’s runway moment!</div>
+    <p>− Chromosomes as sister chromatids move and align on the metaphase plate as pull 
+by spindle fibres. </p>
+    <p>− The chromosome’s centromeres lie on the metaphase plate.  </p>
+
+    <p>− Microtubules of spindle fibre from each pole attach to the centromere of the same 
+chromosome. </p>
+<p>− For each chromosome, the kinetochores of the sister chromatids are attached to 
+kinetochore microtubules coming from opposite poles. </p>
+        <br>
+    <p>− The microtubules extending from each centrosome can now invade the nuclear area.     </p>
+      <p>− The centrosomes are now at opposite poles of the cell.  </p>
+  </div>
+
+  <div id="anaphase" class="phase">
+    <img src="Images/anaphase.png" alt="Anaphase illustration">
+    <div class="caption">💔 Anaphase: Sister chromatids are pulled apart to opposite poles. A dramatic cellular split!</div>
+    <p>- Centromere split</p>
+<p>- Two sister chromatids separate and become two daughter chromosomes The daughter chromosomes move towards the opposite poles due to the shorten kinetochore of spindle fibre.</p>
+<br>
+<p>- The cell elongates as the non-kinetochore microtubules from the opposite poles lengthen, overlap and push against each other, preparing for cytokinesis. </p>
+<p>- Numerous mitochondria around the spindle provide energy for movement of chromosome. </p>
+  </div>
+
+  <div id="telophase" class="phase">
+    <img src="Images/telophase.png" alt="Telophase illustration">
+    <div class="caption">🎭 Telophase: Nuclear membranes reform, chromosomes de-condense, and the cell prepares to divide.</div>
+    <p>- Chromosomes arrive at the opposite poles of the cell.</p>
+
+<p>- The chromosome becomes decondense (uncoil and lengthen), thus becoming invisible again to form chromatin.</p>
+<br>
+<p>- Two daughter nucleoli are reformed in the cell. </p>
+<p>- Nuclear envelopes arise from the fragments of the parent cell's nuclear envelope and other portions of the endomembrane system. </p>
+<p>- The spindle fibres disintegrate. </p>
+  </div>
+
+  <script>
+    function showPhase(phaseId) {
+      const phases = document.querySelectorAll('.phase');
+      phases.forEach(p => p.style.display = 'none');
+      document.getElementById(phaseId).style.display = 'block';
+    }
+  </script>
+
+<script>
+    function showPhase(phaseId) {
+      // Hide all phase content
+      const phases = document.querySelectorAll('.phase');
+      phases.forEach(p => p.style.display = 'none');
+  
+      // Show selected phase
+      document.getElementById(phaseId).style.display = 'block';
+  
+      // Remove 'active' from all buttons
+      const buttons = document.querySelectorAll('.btn');
+      buttons.forEach(btn => btn.classList.remove('active'));
+  
+      // Add 'active' to the clicked button
+      const clickedButton = Array.from(buttons).find(btn =>
+        btn.textContent.toLowerCase().includes(phaseId)
+      );
+      if (clickedButton) clickedButton.classList.add('active');
+    }
+
+    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="STSTJwg07d9WPTV7bPW3w";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+
+  </script>
+<button id="nextButton">NEXT</button>
+<button id="backButton">BACK</button>
+</body>
+<script>
+  document.getElementById('backButton').addEventListener('click', () => {
+  window.history.back(); // Goes to the previous page
+});
+  document.getElementById('nextButton').addEventListener('click', () => {
+  window.location.href= 'meiosis.html'; // Goes to the next page
+});
+</script>
+</html>

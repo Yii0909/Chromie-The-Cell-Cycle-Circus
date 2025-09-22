@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chromie Profile</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #cff7ee, #ffffff);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .profile-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      width: 90%;
+      max-width: 600px;
+      text-align: center;
+    }
+
+    h1, h2, h3 {
+      color: #3574b3;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      margin: 10px 0;
+      font-size: 1.1em;
+    }
+
+    .achievements {
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .achievements div {
+      margin-bottom: 20px;
+    }
+
+    .badge-section {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      padding: 10px;
+      border-radius: 8px;
+      border: 2px dashed #3574b3;
+    }
+
+    .badge.complete {
+      background: #cff7ee;
+    }
+
+    .badge.incomplete {
+      background: #f8d7da;
+    }
+
+    .badge.gold {
+      background: #ffd700;
+      border: 2px solid #3574b3;
+      font-weight: bold;
+    }
+    .progress-bar {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.progress-fill {
+  height: 20px;
+  background-color: #3574b3;
+  text-align: center;
+  color: white;
+  line-height: 20px;
+  font-size: 0.8em;
+}
+
+
+    #backButton {
+      position: fixed;
+      bottom: 20px;
+      right: 80px;
+      background-color: white;
+      color: #3574b3;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 20px;
+      font-size: 1em;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    #backButton:hover {
+      background-color: #e2f2f0;
+    }
+  </style>
+</head>
+<body>
+
+<div class="profile-container">
+  <h1>🎪 Chromie Profile</h1>
+  <div class="info"><strong>Nickname:</strong> <span id="nickname">Loading...</span></div>
+  <div class="info"><strong>Email:</strong> <span id="email">Loading...</span></div>
+
+  <section id="achievements">
+    <h2>🎖️ Your Chromie Achievements</h2>
+    <ul id="achievementList"></ul>
+  </section>
+
+  <div class="achievements">
+    <div id="quizScoreBar"></div>
+    <div id="quizCategoryBars"></div>
+    <div id="gameBadges"></div>
+    <div id="notesBadges"></div>
+    <div id="videoBadges"></div>
+    <div id="comicBadges"></div>
+    <div id="scoreHistoryBar"></div>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxVQYxGfceb_Hu4FcGFDVduFKa5atIfgE",
+    authDomain: "chromiencellcyclecircus.firebaseapp.com",
+    projectId: "chromiencellcyclecircus",
+    storageBucket: "chromiencellcyclecircus.firebasestorage.app",
+    messagingSenderId: "274813718407",
+    appId: "1:274813718407:web:7724d59ced02b0de7b8d22",
+    measurementId: "G-MP9JGD7VB3"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      alert("Please log in to view your profile.");
+      window.location.href = "index.html";
+      return;
+    }
+
+    const userRef = doc(db, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    if (!userSnap.exists()) {
+      document.getElementById("nickname").textContent = "No data found";
+      document.getElementById("email").textContent = user.email;
+      return;
+    }
+
+    const data = userSnap.data();
+    document.getElementById("nickname").textContent = data.name || "No nickname";
+    document.getElementById("email").textContent = data.email || user.email;
+
+    const achievements = data.achievements || {};
+    const score = achievements.quizScore || 0;
+    const quizScores = data.quizProgress || {};
+
+    // 🎓 Overall Quiz Score
+    document.getElementById("quizScoreBar").innerHTML = `
+      <h3>Overall Quiz Score</h3>
+      <div style="background:#eee; border-radius:8px; overflow:hidden; height:30px; margin-bottom:10px;">
+        <div style="width:${score}%; background:#3574b3; color:white; height:100%; display:flex; align-items:center; justify-content:center; font-weight:bold;">
+          ${score}%
+        </div>
+      </div>
+    `;
+    if (score >= 80) {
+      const confetti = document.createElement("div");
+      confetti.textContent = "🎉 Great job!";
+      confetti.style.fontSize = "1.5em";
+      confetti.style.textAlign = "center";
+      document.getElementById("quizScoreBar").appendChild(confetti);
+    }
+
+    // 🧠 Quiz Category Progress Bars
+    const quizContainer = document.getElementById("quizCategoryBars");
+    quizContainer.innerHTML = "<h3>🧠 Quiz Progress by Topic</h3>";
+    for (const topic in quizScores) {
+      const entry = quizScores[topic];
+      const topicScore = entry.total ? Math.round((entry.score / entry.total) * 100) : 0;
+      const date = entry.updatedAt?.toDate ? entry.updatedAt.toDate().toLocaleString("en-MY", { dateStyle: "medium", timeStyle: "short" }) : "Unknown";
+      quizContainer.innerHTML += `
+        <div style="margin-bottom: 12px;">
+          <strong>${topic.charAt(0).toUpperCase() + topic.slice(1)}:</strong> ${topicScore}% <span style="color:gray; font-size:0.9em;">(${date})</span>
+          <div style="background:#eee; border-radius:8px; overflow:hidden; height:25px; margin-top:4px;">
+            <div style="width:${topicScore}%; background:#3574b3; color:white; height:100%; display:flex; align-items:center; justify-content:center; font-weight:bold;">
+              ${topicScore}%
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 🔍 Normalize fields
+    const normalize = (raw) => Array.isArray(raw) ? raw : typeof raw === "object" ? Object.keys(raw) : [];
+    const notes = normalize(data.notesViewed || achievements.notesViewed);
+    const videos = Object.keys(data.videosWatched || {});
+    const comics = normalize(data.comicsViewed || achievements.comicsViewed);
+    const games = normalize(data.gamesPlayed || achievements.gamesPlayed);
+
+    // 🎯 Expected IDs
+    const allNotes = ["mitosis_notes", "meiosis_notes"];
+    const allVideos = ["mitosis", "meiosis", "mitosismeiosis"];
+    const allComics = ["chromie_intro_comic", "chromie_mitosis_comic", "chromie_meiosis_comic"];
+    const allGames = ["matchup", "maze"];
+
+    // 🧩 Badge Renderer
+    function renderBadges(containerId, allItems, completedItems, label) {
+      let html = `<h3>${label}</h3><div class="badge-section">`;
+      allItems.forEach(id => {
+        const done = completedItems.includes(id);
+        html += `<div class="badge ${done ? 'complete' : 'incomplete'}">${id}: ${done ? "✅" : "❌"}
+                  </div>`;
+      });
+      if (allItems.every(id => completedItems.includes(id))) {
+        html += `
+          <div class="badge gold">
+            🏅 All ${label.replace(/[^a-zA-Z ]/g, '')} Completed!
+          </div>`;
+      }
+      html += "</div>";
+      document.getElementById(containerId).innerHTML = html;
+    }
+
+    // Render all badge sections
+    renderBadges("notesBadges", allNotes, notes, "📝 Notes Viewed");
+    renderBadges("videoBadges", allVideos, videos, "🎥 Videos Watched");
+    renderBadges("comicBadges", allComics, comics, "📚 Comics Viewed");
+    renderBadges("gameBadges", allGames, games, "🎮 Games Played");
+
+    //Score History
+    const history = achievements.quizHistory || [];
+if (history.length > 0) {
+  const historyHtml = history.map(entry => {
+    const date = entry.timestamp?.toDate?.() || new Date(entry.timestamp);
+    return `<li>${date.toLocaleString("en-MY", { dateStyle: "medium", timeStyle: "short" })}: ${entry.score}%</li>`;
+  }).join("");
+  document.getElementById("scoreHistoryBar").innerHTML = `
+    <h3>📈 Score History</h3>
+    <ul>${historyHtml}</ul>
+  `;
+}
+
+    // 🎖️ Achievement List
+    const list = document.getElementById("achievementList");
+    list.innerHTML = "";
+
+    const addItem = (label, items, icon) => {
+      if (items.length > 0) {
+        const li = document.createElement("li");
+        li.innerHTML = `<strong>${label}:</strong><br>` + items.map(item => `${icon} ${item}`).join("<br>");
+        list.appendChild(li);
+      }
+    };
+
+    if (
+      notes.length === 0 &&
+      videos.length === 0 &&
+      comics.length === 0 &&
+      games.length === 0 &&
+      score === 0 &&
+      Object.keys(quizScores).length === 0
+    ) {
+      list.innerHTML = "<li>No achievements yet. Start exploring with Chromie! 🎪</li>";
+    }
+  });
+</script>
+
+<button id="backButton">🔙</button>
+<script>
+  document.getElementById('backButton').addEventListener('click', () => {
+    window.history.back();
+  });
+</script>
+
+</body>
+</html>

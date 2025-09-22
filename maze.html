@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Spindle Fiber Maze</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>🧬 Spindle Fiber Maze</h1>
+  <p>Use arrow keys to guide Chromie to the metaphase plate!</p>
+  <p>Chromie is PINK and needs to move to the GREEN metaphase plate.</p>
+
+  <canvas id="mazeCanvas" width="400" height="400"></canvas>
+  <div id="status"></div>
+
+  <div id="controls" style="margin-top: 20px;">
+    <button onclick="moveChromie(0, -1)">⬆️</button><br>
+    <button onclick="moveChromie(-1, 0)">⬅️</button>
+    <button onclick="moveChromie(1, 0)">➡️</button><br>
+    <button onclick="moveChromie(0, 1)">⬇️</button>
+  </div>
+
+  <button onclick="location.reload()">🔄 Retry</button>
+  <button id="backButton">🔙</button>
+
+  <script>
+    document.getElementById('backButton').addEventListener('click', () => {
+      window.history.back();
+    });
+  </script>
+
+  <!-- Load maze.js as a module -->
+  <script type="module" src="maze.js"></script>
+</body>
+
+
+  <script>
+    document.getElementById('backButton').addEventListener('click', () => {
+  window.history.back(); // Goes to the previous page
+});
+    (function(){if(!window.chatbase||window.chatbase("getState")!=="initialized"){window.chatbase=(...arguments)=>{if(!window.chatbase.q){window.chatbase.q=[]}window.chatbase.q.push(arguments)};window.chatbase=new Proxy(window.chatbase,{get(target,prop){if(prop==="q"){return target.q}return(...args)=>target(prop,...args)}})}const onLoad=function(){const script=document.createElement("script");script.src="https://www.chatbase.co/embed.min.js";script.id="STSTJwg07d9WPTV7bPW3w";script.domain="www.chatbase.co";document.body.appendChild(script)};if(document.readyState==="complete"){onLoad()}else{window.addEventListener("load",onLoad)}})();
+</script>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+  import { getAuth } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+  import { getFirestore, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+  
+  const firebaseConfig = {
+    apiKey: "AIzaSyAxVQYxGfceb_Hu4FcGFDVduFKa5atIfgE",
+    authDomain: "chromiencellcyclecircus.firebaseapp.com",
+    projectId: "chromiencellcyclecircus",
+    storageBucket: "chromiencellcyclecircus.firebasestorage.app",
+    messagingSenderId: "274813718407",
+    appId: "1:274813718407:web:7724d59ced02b0de7b8d22",
+    measurementId: "G-MP9JGD7VB3"
+  };
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  
+  async function recordMazePlayed() {
+  const user = auth.currentUser;
+  if (!user) {
+    console.warn("User not logged in—cannot record maze progress.");
+    return;
+  }
+  const userRef = doc(db, "users", user.uid);
+  await updateDoc(userRef, {
+    "achievements.gamesPlayed.maze": true
+  });
+}
+
+  // Call this when the maze is completed
+  </script>
+  
+</html>
+
+
