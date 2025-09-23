@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="icon" type="image/png" href="Images/logo.jpg">
+  <link rel="icon" type="image/png" href="Images/chromie.png">
   <title>Chromie Portal</title>
   <style>
     
@@ -311,28 +311,20 @@ window.signUp = async function () {
 
     const userRef = doc(db, "users", user.uid);
 
-    // Save basic user info
-    await setDoc(userRef, {
-      name: name,
-      email: email,
-      createdAt: new Date()
-    });
-
     // Save achievements
-    await updateDoc(userRef, {
-      achievements: {
-        quizScore: 90,
-        gamesPlayed: {
-          matchup: true,
-          maze: false
-        },
-        videosWatched: {
-          mitosis: true
-        },
-        figmaClicked: true,
-        notesViewed: ["mitosis_notes"]
-      }
-    });
+    await setDoc(userRef, {
+  name: name,
+  email: email,
+  createdAt: new Date(),
+  achievements: {
+    quizScore: 0,
+    gamesPlayed: {},
+    videosWatched: {},
+    comicsViewed: {},
+    notesViewed: {},
+    figmaClicked: false
+  }
+});
 
     alert("Sign-up successful! 🎉 Chromie welcomes you to the circus!");
     window.location.href = "bio.html";
@@ -376,10 +368,12 @@ window.logInAsGuest = async function () {
   }
 };
 </script>
+
+<footer class="footer">
+  <p>🔬 Made with curiosity and chromosomes by <strong>Chromie Crews</strong></p>
+</footer>
+
 </body>
 </html>
-
-
-
 
 
