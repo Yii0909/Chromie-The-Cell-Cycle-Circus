@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="Images/chromie.png">
+  <title>Chromie Portal</title>
+  <style>
+    
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to bottom, #3574b3, #cff7ee);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* stack vertically */
+  align-items: center;
+  min-height: 100vh;
+}
+
+    .logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(255,255,255,0.6);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.portal-title {
+  margin-top: 80px;
+  text-align: center;
+  color: white;
+  font-size: 3.5em;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.4);
+  animation: fadeIn 1s ease-out;
+}
+
+
+.container {
+  background-color: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  width: 90%;
+  max-width: 400px;
+  margin: 40px 0;
+}
+
+
+    h2 {
+      text-align: center;
+      margin-top: 0px;
+      margin-bottom: 10px;
+      font-size: 1.7em;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 92%;
+      padding: 12px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1.0em;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #3574b3;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 1.0em;
+      cursor: pointer;
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.0em;
+    }
+
+    .toggle a {
+      color: #3574b3;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .footer {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.8em;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  background-color: rgb(84, 96, 108);
+}
+
+.feature-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin: 0px 0;
+  padding: 0 20px;
+  max-width: 800px;
+}
+
+.feature-card {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 15px;
+  width: 180px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.feature-card h3 {
+  margin-top: 0;
+  font-size: 1.0em;
+  color: #3574b3;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .portal-title {
+    font-size: 2em;
+    margin-top: 40px;
+  }
+
+.feature-boxes {
+  display: flex;               /* enables flex layout */
+  flex-wrap: wrap;             /* allows wrapping to next line */
+  justify-content: center;     /* centers horizontally */
+  gap: 20px;                   /* spacing between cards */
+  margin: 20px 0;
+}
+
+.feature-boxes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  justify-items: center;
+  margin: 20px 0;
+}
+
+
+.feature-card {
+  width: 70%;
+  height: auto;
+  padding: 15px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+
+  .feature-card h3 {
+  margin-top: 0;
+  font-size: 0.8em;
+  color: #3574b3;
+}
+
+  .container {
+    width: 95%;
+    margin: 20px 0;
+  }
+
+  .logo {
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    left: 10px;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <img src="Images/chromie.png" alt="Chromie Logo" class="logo">
+  <h1 class="portal-title">Chromie & The Cell Cycle Circus</h1>
+  </h1>  
+  <div class="feature-boxes">
+  <div class="feature-card">
+    <h3>📝 Notes</h3>
+    </div>
+  <div class="feature-card">
+    <h3>🎥 Videos</h3>
+    </div>
+  <div class="feature-card">
+    <h3>🎮 Games</h3>
+    </div>
+  <div class="feature-card">
+    <h3>📚 Comics</h3>
+    </div>
+<div class="feature-card">
+  <h3>🧠 Quiz</h3>
+  </div>
+  <div class="feature-card">
+    <h3>🤖 Chatbot</h3>
+    </div>
+</div>
+
+  <div class="container">
+    <div id="loginForm">
+      <h2>Login</h2>
+      <input type="email" id="loginEmail" placeholder="Email" required>
+      <input type="password" id="loginPassword" placeholder="Password" required>
+      <button onclick="logIn()">Log In</button> 
+      <button onclick="logInAsGuest()" style="margin-top: 10px;">Log In as Guest</button>
+      <div class="toggle">
+        Don't have an account? <a onclick="toggleForms()">Sign Up</a>
+      </div>
+    </div>
+
+    <div id="signupForm" class="hidden">
+      <h2>Sign Up</h2>
+      <input type="text" id="signupName" placeholder="Name" required>
+<input type="email" id="signupEmail" placeholder="Email" required>
+<input type="password" id="signupPassword" placeholder="Password" required>
+<button onclick="signUp()">Sign Up</button>
+      <div class="toggle">
+        Already have an account? <a onclick="toggleForms()">Log In</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleForms() {
+      const login = document.getElementById('loginForm');
+      const signup = document.getElementById('signupForm');
+      login.classList.toggle('hidden');
+      signup.classList.toggle('hidden');
+    }
+</script>
+
+<script type ="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-analytics.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAxVQYxGfceb_Hu4FcGFDVduFKa5atIfgE",
+  authDomain: "chromiencellcyclecircus.firebaseapp.com",
+  projectId: "chromiencellcyclecircus",
+  storageBucket: "chromiencellcyclecircus.firebasestorage.app",
+  messagingSenderId: "274813718407",
+  appId: "1:274813718407:web:7724d59ced02b0de7b8d22",
+  measurementId: "G-MP9JGD7VB3"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+window.logIn = function () {
+  const email = document.getElementById("loginEmail").value;
+  const password = document.getElementById("loginPassword").value;
+
+  if (!email || !password) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "bio.html";
+    })
+    .catch((error) => alert(error.message));
+};
+
+window.signUp = async function () {
+  const name = document.getElementById("signupName").value;
+  const email = document.getElementById("signupEmail").value;
+  const password = document.getElementById("signupPassword").value;
+
+  if (!name || !email || !password) {
+    alert("Please fill in all fields!");
+    return;
+  }
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    const userRef = doc(db, "users", user.uid);
+
+    // Save basic user info
+    await setDoc(userRef, {
+      name: name,
+      email: email,
+      createdAt: new Date()
+    });
+
+    // Save achievements
+    await updateDoc(userRef, {
+      achievements: {
+        quizScore: 90,
+        gamesPlayed: {
+          matchup: true,
+          maze: false
+        },
+        videosWatched: {
+          mitosis: true
+        },
+        figmaClicked: true,
+        notesViewed: ["mitosis_notes"]
+      }
+    });
+
+    alert("Sign-up successful! 🎉 Chromie welcomes you to the circus!");
+    window.location.href = "bio.html";
+
+  } catch (error) {
+    alert(error.message);
+  }
+};
+
+window.testFirestore = async function () {
+  try {
+    const testRef = doc(db, "testCollection", "testDoc");
+    await setDoc(testRef, { hello: "world", timestamp: new Date() });
+    alert("✅ Firestore write successful!");
+  } catch (error) {
+    console.error("❌ Firestore write failed:", error);
+    alert("Firestore write failed. Check console for details.");
+  }
+};
+import { signInAnonymously } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+
+window.logInAsGuest = async function () {
+  try {
+    const result = await signInAnonymously(auth);
+    const user = result.user;
+
+    // Optional: Create a basic guest profile in Firestore
+    const userRef = doc(db, "users", user.uid);
+    await setDoc(userRef, {
+      name: "Guest",
+      email: "guest@chromie.com",
+      createdAt: new Date(),
+      isGuest: true
+    }, { merge: true });
+
+    alert("🎪 Welcome, Guest! Enjoy the Cell Cycle Circus! 🎭 You're logged in as a guest. Progress won't be saved permanently.");
+    window.location.href = "bio.html";
+  } catch (error) {
+    console.error("❌ Guest login failed:", error);
+    alert("Guest login failed. Check console for details.");
+  }
+};
+</script>
+
+<footer class="footer">
+  <p>🔬 Made with curiosity and chromosomes by <strong>Chromie Crews</strong></p>
+</footer>
+
+</body>
+</html>
+
+
